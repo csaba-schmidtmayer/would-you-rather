@@ -1,5 +1,5 @@
-import { loginUserLogic } from './apiLogic';
+import apiLogic from './apiLogic';
 
 export default [
-  loginUserLogic
+  ...apiLogic
 ];
