@@ -10,7 +10,7 @@ describe('user actions', () => {
         password: 'letMeIn!4!'
       }
     };
-    expect(actions.login(username, password))
+    expect(actions.login('admin', 'letMeIn!4!'))
       .toEqual(expectedAction);
   });
 
@@ -24,7 +24,7 @@ describe('user actions', () => {
         password: 'letMeIn!4!'
       }
     };
-    expect(actions.register(username, name, avatar, password))
+    expect(actions.register('admin', 'Adam Minuteman', 'male04', 'letMeIn!4!'))
       .toEqual(expectedAction);
   });
 });

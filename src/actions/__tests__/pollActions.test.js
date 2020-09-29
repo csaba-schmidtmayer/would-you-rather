@@ -10,7 +10,7 @@ describe('poll actions', () => {
         optionTwo: 'be a Sith'
       }
     };
-    expect(actions.newPoll(optionOne, optionTwo))
+    expect(actions.newPoll('be a Jedi', 'be a Sith'))
       .toEqual(expectedAction);
   });
 
@@ -22,7 +22,7 @@ describe('poll actions', () => {
         option: 'optionTwo'
       }
     };
-    expect(actions.takePoll(id, option))
+    expect(actions.takePoll('13', 'optionTwo'))
       .toEqual(expectedAction);
   });
 });
