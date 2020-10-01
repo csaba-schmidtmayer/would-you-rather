@@ -3,8 +3,26 @@ import { axios } from 'axios';
 import { showLoading, hideLoading } from 'react-redux-loading-bar';
 
 import { REGISTER, LOGIN, LOGOUT } from '../constants/actionTypes';
-import { SUCCESS } from '../constants/const';
+import { SUCCESS, API_PATH } from '../constants/const';
 import { setDbMsg, clearDbMsg } from '../actions/dbMsgActions';
+import { setActiveUser } from '../actions/userActions';
+
+const checkForErrors = async (query, dispatch, ...args) => {
+  try {
+    const response = await query(...args);
+    if (response.data.errors === undefined) {
+      return response.data.data;
+    }
+    else {
+      const errMsg = response.data.errors[0].message;
+      dispatch(setDbMsg(errMsg));
+      throw new Error(errMsg);
+    }
+  }
+  catch (error) {
+    throw error;
+  }
+}
 
 const registerUserLogic = createLogic({
   type: REGISTER,
@@ -36,15 +54,9 @@ const registerUserLogic = createLogic({
     };
     dispatch(showLoading());
     try {
-      const response = await httpClient.post('/', data);
-      const dbMsg = response.data.data.registerUser;
-      if (dbMsg === null) {
-        dispatch(setDbMsg(SUCCESS));
-        dispatch(clearDbMsg());
-      }
-      else {
-        dispatch(setDbMsg(dbMsg));
-      }      
+      await checkForErrors(httpClient.post, dispatch, API_PATH, data);
+      dispatch(setDbMsg(SUCCESS));
+      dispatch(clearDbMsg());
     }
     catch (error) {
       console.log(error);
@@ -60,28 +72,42 @@ const loginUserLogic = createLogic({
   type: LOGIN,
 
   async process({ getState, action, httpClient }, dispatch, done) {
-    const query = `
-      mutation LoginUser(
-        $credentials: UserCredentialsInput
-      ) {
-        loginUser(
-          credentials: $credentials
-        )
-      }
-    `;
-    const data = {
-      query,
-      variables: {
-        credentials: {
-          username: action.payload.username,
-          password: action.payload.password
-        }
-      }
-    };
     dispatch(showLoading());
     try {
-      const response = await httpClient.post('/', data);
-      httpClient.defaults.headers.common['Authorization'] = response.data.data.loginUser;
+      const reqTokenData = {
+        query: `
+          mutation LoginUser(
+            $credentials: UserCredentialsInput
+          ) {
+            loginUser(
+              credentials: $credentials
+            )
+          }
+        `,
+        variables: {
+          credentials: {
+            username: action.payload.username,
+            password: action.payload.password
+          }
+        }
+      };
+      const tokenData = await checkForErrors(httpClient.post, dispatch, API_PATH, reqTokenData);
+      httpClient.defaults.headers.common['Authorization'] = tokenData.loginUser;
+      const reqActiveUserData = {
+	       query: `query GetActiveUser{
+           activeUser{
+             username,
+             name,
+             avatar,
+             answers{
+               optionOne,
+               optionTwo
+             }
+           }
+         }`
+      };
+      const activeUserData = await checkForErrors(httpClient.post, dispatch, API_PATH, reqActiveUserData);
+      dispatch(setActiveUser(activeUserData.activeUser));
       // TODO: dispatch data fetching logic
     }
     catch (error) {
