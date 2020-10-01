@@ -26,7 +26,7 @@ function App(props) {
 }
 
 const mapStateToProps = ({ activeUser }) => ({
-  isLoggedIn: activeUser.activeUser === null ? false : true
+  isLoggedIn: activeUser === null ? false : true
 });
 
 export default connect(mapStateToProps)(App);

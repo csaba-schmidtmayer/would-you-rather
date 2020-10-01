@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+import { logout } from '../actions/userActions';
+
 class Header extends React.Component {
   constructor(props) {
     super(props);
@@ -10,7 +12,7 @@ class Header extends React.Component {
   }
 
   logout() {
-
+    this.props.dispatch(logout());
   }
 
   render() {

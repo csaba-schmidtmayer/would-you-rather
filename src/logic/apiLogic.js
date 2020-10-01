@@ -5,7 +5,7 @@ import { showLoading, hideLoading } from 'react-redux-loading-bar';
 import { REGISTER, LOGIN, LOGOUT } from '../constants/actionTypes';
 import { SUCCESS, API_PATH } from '../constants/const';
 import { setDbMsg, clearDbMsg } from '../actions/dbMsgActions';
-import { setActiveUser } from '../actions/userActions';
+import { setActiveUser, delActiveUser } from '../actions/userActions';
 
 const checkForErrors = async (query, dispatch, ...args) => {
   try {
@@ -120,7 +120,40 @@ const loginUserLogic = createLogic({
   }
 });
 
+const logoutUserLogic = createLogic({
+  type: LOGOUT,
+
+  async process({ getState, action, httpClient }, dispatch, done) {
+    try {
+      const reqLogoutData = {
+        query: `
+          mutation Logout(
+            $username: String
+          ){
+            logoutUser(
+              username: $username
+            )
+          }
+        `,
+        variables: {
+          username: getState().activeUser.username
+        }
+      };
+      await checkForErrors(httpClient.post, dispatch, API_PATH, reqLogoutData);
+      delete httpClient.defaults.headers.common['Authorization'];
+      dispatch(delActiveUser());
+    }
+    catch (error) {
+      console.log(error);
+    }
+    finally {
+      done();
+    }
+  }
+})
+
 export default [
   registerUserLogic,
-  loginUserLogic
+  loginUserLogic,
+  logoutUserLogic
 ];
