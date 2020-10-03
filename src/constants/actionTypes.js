@@ -8,6 +8,7 @@ export const REGISTER = 'REGISTER';
 export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
 export const SET_ACTIVE_USER = 'SET_ACTIVE_USER';
+export const DEL_ACTIVE_USER = 'DEL_ACTIVE_USER';
 export const POPULATE_USERS = 'POPULATE_USERS';
 
 /* Database message */

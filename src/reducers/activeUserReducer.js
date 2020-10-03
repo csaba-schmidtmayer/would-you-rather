@@ -1,4 +1,4 @@
-import { SET_ACTIVE_USER } from '../constants/actionTypes';
+import { SET_ACTIVE_USER, DEL_ACTIVE_USER } from '../constants/actionTypes';
 
 const activeUserReducer = (state = null, action) => {
   const { type, payload } = action;
@@ -14,6 +14,8 @@ const activeUserReducer = (state = null, action) => {
         avatar: payload.activeUser.avatar,
         answers
       };
+    case DEL_ACTIVE_USER:
+      return null;
     default:
       return state;
   };
