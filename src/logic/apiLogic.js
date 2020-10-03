@@ -100,8 +100,8 @@ const loginUserLogic = createLogic({
              name,
              avatar,
              answers{
-               optionOne,
-               optionTwo
+               pollId,
+               option
              }
            }
          }`
