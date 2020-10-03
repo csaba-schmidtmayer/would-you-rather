@@ -6,6 +6,7 @@ import { REGISTER, LOGIN, LOGOUT } from '../constants/actionTypes';
 import { SUCCESS, API_PATH } from '../constants/const';
 import { setDbMsg, clearDbMsg } from '../actions/dbMsgActions';
 import { setActiveUser, delActiveUser } from '../actions/userActions';
+import { populatePolls } from '../actions/pollActions';
 
 const checkForErrors = async (query, dispatch, ...args) => {
   try {
@@ -94,20 +95,43 @@ const loginUserLogic = createLogic({
       const tokenData = await checkForErrors(httpClient.post, dispatch, API_PATH, reqTokenData);
       httpClient.defaults.headers.common['Authorization'] = tokenData.loginUser;
       const reqActiveUserData = {
-	       query: `query GetActiveUser{
-           activeUser{
-             username,
-             name,
-             avatar,
-             answers{
-               pollId,
-               option
+	       query: `
+           query GetActiveUser{
+             activeUser{
+               username,
+               name,
+               avatar,
+               answers{
+                 pollId,
+                 option
+               }
              }
            }
-         }`
+         `
       };
       const activeUserData = await checkForErrors(httpClient.post, dispatch, API_PATH, reqActiveUserData);
       dispatch(setActiveUser(activeUserData.activeUser));
+      const reqPollsData = {
+        query: `
+          query GetAllPolls{
+            getAllPolls{
+              id,
+              author,
+              optionOne{
+                text,
+                numOfAnswers
+              },
+              optionTwo{
+                text,
+                numOfAnswers
+              },
+              created
+            }
+          }
+        `
+      };
+      const pollsData = await checkForErrors(httpClient.post, dispatch, API_PATH, reqPollsData);
+      dispatch(populatePolls(pollsData.getAllPolls));
       // TODO: dispatch data fetching logic
     }
     catch (error) {
