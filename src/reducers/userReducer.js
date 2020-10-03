@@ -1,4 +1,4 @@
-import { REGISTER } from '../constants/actionTypes';
+import { REGISTER, POPULATE_USERS } from '../constants/actionTypes';
 
 const userReducer = (state = {}, action) => {
   const { type, payload } = action;
@@ -14,8 +14,18 @@ const userReducer = (state = {}, action) => {
           questions: []
         }
       });
-      default:
-        return state;
+    case POPULATE_USERS:
+      const usersAssocArr = {};
+      payload.users.forEach((user) => {
+        usersAssocArr[user.username] = {
+          username: user.username,
+          name: user.name,
+          avatar: user.avatar
+        };
+      });
+      return usersAssocArr;
+    default:
+      return state;
   };
 };
 

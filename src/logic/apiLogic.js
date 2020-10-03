@@ -5,7 +5,7 @@ import { showLoading, hideLoading } from 'react-redux-loading-bar';
 import { REGISTER, LOGIN, LOGOUT } from '../constants/actionTypes';
 import { SUCCESS, API_PATH } from '../constants/const';
 import { setDbMsg, clearDbMsg } from '../actions/dbMsgActions';
-import { setActiveUser, delActiveUser } from '../actions/userActions';
+import { setActiveUser, delActiveUser, populateUsers } from '../actions/userActions';
 import { populatePolls } from '../actions/pollActions';
 
 const checkForErrors = async (query, dispatch, ...args) => {
@@ -132,7 +132,19 @@ const loginUserLogic = createLogic({
       };
       const pollsData = await checkForErrors(httpClient.post, dispatch, API_PATH, reqPollsData);
       dispatch(populatePolls(pollsData.getAllPolls));
-      // TODO: dispatch data fetching logic
+      const reqUsersData = {
+        query: `
+          query GetAllUsers{
+            getAllUsers{
+              username,
+              name,
+              avatar
+            }
+          }
+        `
+      };
+      const usersData = await checkForErrors(httpClient.post, dispatch, API_PATH, reqUsersData);
+      dispatch(populateUsers(usersData.getAllUsers));
     }
     catch (error) {
       console.log(error);
