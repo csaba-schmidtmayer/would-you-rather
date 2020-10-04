@@ -5,8 +5,9 @@ import { showLoading, hideLoading } from 'react-redux-loading-bar';
 import { REGISTER, LOGIN, LOGOUT } from '../constants/actionTypes';
 import { SUCCESS, API_PATH } from '../constants/const';
 import { setDbMsg, clearDbMsg } from '../actions/dbMsgActions';
-import { setActiveUser, delActiveUser, populateUsers } from '../actions/userActions';
+import { setActiveUser, populateUsers } from '../actions/userActions';
 import { populatePolls } from '../actions/pollActions';
+import { clearStore } from '../actions/storeActions';
 
 const checkForErrors = async (query, dispatch, ...args) => {
   try {
@@ -183,7 +184,7 @@ const logoutUserLogic = createLogic({
       };
       await checkForErrors(httpClient.post, dispatch, API_PATH, reqLogoutData);
       delete httpClient.defaults.headers.common['Authorization'];
-      dispatch(delActiveUser());
+      dispatch(clearStore());
     }
     catch (error) {
       console.log(error);

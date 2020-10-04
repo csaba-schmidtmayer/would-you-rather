@@ -1,4 +1,4 @@
-import { SET_DB_MSG, CLEAR_DB_MSG } from '../constants/actionTypes';
+import { SET_DB_MSG, CLEAR_DB_MSG, CLEAR_STORE } from '../constants/actionTypes';
 
 const dbMsgReducer = (state = {dbMsg: null}, action) => {
   const { type, payload } = action;
@@ -8,6 +8,10 @@ const dbMsgReducer = (state = {dbMsg: null}, action) => {
         dbMsg: payload.dbMsg
       });
     case CLEAR_DB_MSG:
+      return ({
+        dbMsg: null
+      });
+    case CLEAR_STORE:
       return ({
         dbMsg: null
       });

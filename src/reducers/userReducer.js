@@ -1,4 +1,4 @@
-import { REGISTER, POPULATE_USERS } from '../constants/actionTypes';
+import { REGISTER, POPULATE_USERS, CLEAR_STORE } from '../constants/actionTypes';
 
 const userReducer = (state = {}, action) => {
   const { type, payload } = action;
@@ -26,6 +26,8 @@ const userReducer = (state = {}, action) => {
         };
       });
       return usersAssocArr;
+    case CLEAR_STORE:
+      return {};
     default:
       return state;
   };

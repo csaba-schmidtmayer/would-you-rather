@@ -1,4 +1,4 @@
-import { POPULATE_POLLS } from '../constants/actionTypes';
+import { POPULATE_POLLS, CLEAR_STORE } from '../constants/actionTypes';
 
 const pollReducer = (state = {}, action) => {
   const { type, payload } = action;
@@ -20,6 +20,8 @@ const pollReducer = (state = {}, action) => {
         };
       });
       return pollsAssocArr;
+    case CLEAR_STORE:
+      return {};
     default:
       return state;
   };
