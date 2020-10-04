@@ -20,7 +20,9 @@ const userReducer = (state = {}, action) => {
         usersAssocArr[user.username] = {
           username: user.username,
           name: user.name,
-          avatar: user.avatar
+          avatar: user.avatar,
+          numOfPolls: user.numOfPolls,
+          numOfAnswers: user.numOfAnswers
         };
       });
       return usersAssocArr;

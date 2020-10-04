@@ -9,9 +9,9 @@ const activeUserReducer = (state = null, action) => {
         answers[answer.pollId] = answer.option;
       });
       return {
-        username: payload.activeUser.username,
-        name: payload.activeUser.name,
-        avatar: payload.activeUser.avatar,
+        username: payload.activeUser.userData.username,
+        name: payload.activeUser.userData.name,
+        avatar: payload.activeUser.userData.avatar,
         answers
       };
     case DEL_ACTIVE_USER:

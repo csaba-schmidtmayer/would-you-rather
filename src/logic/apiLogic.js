@@ -98,9 +98,11 @@ const loginUserLogic = createLogic({
 	       query: `
            query GetActiveUser{
              activeUser{
-               username,
-               name,
-               avatar,
+               userData{
+                 username,
+                 name,
+                 avatar
+               },
                answers{
                  pollId,
                  option
@@ -138,7 +140,9 @@ const loginUserLogic = createLogic({
             getAllUsers{
               username,
               name,
-              avatar
+              avatar,
+              numOfPolls,
+              numOfAnswers
             }
           }
         `
