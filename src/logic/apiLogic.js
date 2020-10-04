@@ -53,6 +53,7 @@ const registerUserLogic = createLogic({
         avatar: action.payload.avatar
       }
     };
+    dispatch(clearDbMsg());
     dispatch(showLoading());
     try {
       await checkForErrors(httpClient.post, dispatch, API_PATH, data);
@@ -73,6 +74,7 @@ const loginUserLogic = createLogic({
   type: LOGIN,
 
   async process({ getState, action, httpClient }, dispatch, done) {
+    dispatch(clearDbMsg());
     dispatch(showLoading());
     try {
       const reqTokenData = {
