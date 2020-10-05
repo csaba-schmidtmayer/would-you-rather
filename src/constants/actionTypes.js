@@ -2,6 +2,7 @@
 export const NEW_POLL = 'NEW_POLL';
 export const TAKE_POLL = 'TAKE_POLL';
 export const POPULATE_POLLS = 'POPULATE_POLLS';
+export const ADD_NEW_POLL = 'ADD_NEW_POLL';
 
 /* User */
 export const REGISTER = 'REGISTER';

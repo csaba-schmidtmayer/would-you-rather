@@ -1,4 +1,4 @@
-import { POPULATE_POLLS, CLEAR_STORE } from '../constants/actionTypes';
+import { POPULATE_POLLS, ADD_NEW_POLL, CLEAR_STORE } from '../constants/actionTypes';
 
 const pollReducer = (state = {}, action) => {
   const { type, payload } = action;
@@ -20,6 +20,22 @@ const pollReducer = (state = {}, action) => {
         };
       });
       return pollsAssocArr;
+    case ADD_NEW_POLL:
+      return {
+        ...state,
+        [payload.poll.id]: {
+          author: payload.poll.author,
+          optionOne: {
+            text: payload.poll.optionOne.text,
+            numOfAnswers: payload.poll.optionOne.numOfAnswers
+          },
+          optionTwo: {
+            text: payload.poll.optionTwo.text,
+            numOfAnswers: payload.poll.optionTwo.numOfAnswers
+          },
+          created: new Date(payload.poll.created)
+        }
+      };
     case CLEAR_STORE:
       return {};
     default:

@@ -2,11 +2,11 @@ import { createLogic } from 'redux-logic';
 import { axios } from 'axios';
 import { showLoading, hideLoading } from 'react-redux-loading-bar';
 
-import { REGISTER, LOGIN, LOGOUT } from '../constants/actionTypes';
+import { REGISTER, LOGIN, LOGOUT, NEW_POLL } from '../constants/actionTypes';
 import { SUCCESS, API_PATH } from '../constants/const';
 import { setDbMsg, clearDbMsg } from '../actions/dbMsgActions';
 import { setActiveUser, populateUsers } from '../actions/userActions';
-import { populatePolls } from '../actions/pollActions';
+import { populatePolls, addNewPoll } from '../actions/pollActions';
 import { clearStore } from '../actions/storeActions';
 
 const checkForErrors = async (query, dispatch, ...args) => {
@@ -24,7 +24,7 @@ const checkForErrors = async (query, dispatch, ...args) => {
   catch (error) {
     throw error;
   }
-}
+};
 
 const registerUserLogic = createLogic({
   type: REGISTER,
@@ -193,10 +193,62 @@ const logoutUserLogic = createLogic({
       done();
     }
   }
-})
+});
+
+const newPollLogic = createLogic({
+  type: NEW_POLL,
+
+  async process({ getState, action, httpClient }, dispatch, done) {
+    dispatch(clearDbMsg());
+    dispatch(showLoading());
+    try {
+      const reqNewPollData = {
+        query: `
+          mutation NewPoll(
+            $options: PollOptions
+          ){
+            createPoll(
+              options: $options
+            ){
+              id,
+              author,
+              optionOne{
+                text,
+                numOfAnswers
+              },
+              optionTwo{
+                text,
+                numOfAnswers
+              },
+              created
+            }
+          }
+        `,
+        variables: {
+          options: {
+            optionOne: action.payload.optionOne,
+            optionTwo: action.payload.optionTwo
+          }
+        }
+      };
+      const newPollData = await checkForErrors(httpClient.post, dispatch, API_PATH, reqNewPollData);
+      dispatch(addNewPoll(newPollData.createPoll));
+      dispatch(setDbMsg(SUCCESS));
+      dispatch(clearDbMsg());
+    }
+    catch (error) {
+      console.log(error);
+    }
+    finally {
+      dispatch(hideLoading());
+      done();
+    }
+  }
+});
 
 export default [
   registerUserLogic,
   loginUserLogic,
-  logoutUserLogic
+  logoutUserLogic,
+  newPollLogic
 ];
