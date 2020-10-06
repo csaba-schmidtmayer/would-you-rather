@@ -72,10 +72,10 @@ class Register extends React.Component {
     const { username, usernameError, name, nameError, passwordOne, passwordTwo, isPasswordVisible, passwordError, avatar } = this.state;
     const { dbMsg } = this.props;
     return (
-      (dbMsg === SUCCESS)
+      (dbMsg.msgText === SUCCESS)
         ? <Redirect to="/" />
         : <div>
-          {dbMsg ? <p>{dbMsg}</p> : null}
+          {dbMsg.msgText ? <p>{dbMsg.msgText}</p> : null}
           <form onSubmit={this.handleRegisterSubmit}>
             {usernameError ? <p>{usernameError}</p> : null}
             <input
@@ -121,7 +121,7 @@ class Register extends React.Component {
 }
 
 const mapStateToProps = ({ dbMsg }) => ({
-  dbMsg: dbMsg.dbMsg
+  dbMsg
 });
 
 export default connect(mapStateToProps)(Register);

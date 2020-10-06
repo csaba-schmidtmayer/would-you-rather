@@ -233,7 +233,7 @@ const newPollLogic = createLogic({
       };
       const newPollData = await checkForErrors(httpClient.post, dispatch, API_PATH, reqNewPollData);
       dispatch(addNewPoll(newPollData.createPoll));
-      dispatch(setDbMsg(SUCCESS));
+      dispatch(setDbMsg(SUCCESS, {pollId: newPollData.createPoll.id}));
       dispatch(clearDbMsg());
     }
     catch (error) {

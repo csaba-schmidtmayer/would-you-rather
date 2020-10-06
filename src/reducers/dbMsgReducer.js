@@ -1,19 +1,22 @@
 import { SET_DB_MSG, CLEAR_DB_MSG, CLEAR_STORE } from '../constants/actionTypes';
 
-const dbMsgReducer = (state = {dbMsg: null}, action) => {
+const dbMsgReducer = (state = {msgText: '', msgParams: null}, action) => {
   const { type, payload } = action;
   switch (type) {
     case SET_DB_MSG:
       return ({
-        dbMsg: payload.dbMsg
+        msgText: payload.msgText,
+        msgParams: payload.msgParams
       });
     case CLEAR_DB_MSG:
       return ({
-        dbMsg: null
+        msgText: '',
+        msgParams: null
       });
     case CLEAR_STORE:
       return ({
-        dbMsg: null
+        msgText: '',
+        msgParams: null
       });
     default:
       return state;

@@ -1,7 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 import { newPoll } from '../actions/pollActions';
+import { SUCCESS } from '../constants/const';
 
 class NewPoll extends React.Component {
   constructor(props) {
@@ -32,30 +34,39 @@ class NewPoll extends React.Component {
 
   render() {
     // TODO: Add redirect to the new poll
+    const { dbMsg } = this.props;
     return (
-      <div>
-        <form onSubmit={this.handleNewPollSubmit}>
-          <input
-            name="optionOne"
-            type="text"
-            placeholder="do this"
-            value={this.state.optionOne}
-            onChange={this.handleFormChange}
-          />
-          <input
-            name="optionTwo"
-            type="text"
-            placeholder="do that"
-            value={this.state.optionTwo}
-            onChange={this.handleFormChange}
-          />
-          <button type="submit">
-            Create new poll
-          </button>
-        </form>
-      </div>
+      (dbMsg.msgText === SUCCESS)
+        ? <Redirect push to={`/polls/${dbMsg.msgParams.pollId}`} />
+        : <div>
+          {dbMsg.msgText ? <p>{dbMsg.msgText}</p> : null}
+          <p>Would you rather...?</p>
+          <form onSubmit={this.handleNewPollSubmit}>
+            <input
+              name="optionOne"
+              type="text"
+              placeholder="do this"
+              value={this.state.optionOne}
+              onChange={this.handleFormChange}
+            />
+            <input
+              name="optionTwo"
+              type="text"
+              placeholder="do that"
+              value={this.state.optionTwo}
+              onChange={this.handleFormChange}
+            />
+            <button type="submit">
+              Create new poll
+            </button>
+          </form>
+        </div>
     );
   }
 }
+
+const mapStateToProps = ({ dbMsg }) => ({
+  dbMsg
+});
 
 export default connect(mapStateToProps)(NewPoll);
