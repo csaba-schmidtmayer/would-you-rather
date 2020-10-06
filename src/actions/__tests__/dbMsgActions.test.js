@@ -6,7 +6,8 @@ describe('database message actions', () => {
     const expectedAction = {
       type: types.SET_DB_MSG,
       payload: {
-        dbMsg: 'SUCCESS'
+        msgText: 'SUCCESS',
+        msgParams: null
       }
     };
     expect(actions.setDbMsg('SUCCESS'))
@@ -15,7 +16,8 @@ describe('database message actions', () => {
 
   it('should create an action to clear the database message', () => {
     const expectedAction = {
-      type: types.CLEAR_DB_MSG
+      type: types.CLEAR_DB_MSG,
+      payload: {}
     };
     expect(actions.clearDbMsg())
       .toEqual(expectedAction);
