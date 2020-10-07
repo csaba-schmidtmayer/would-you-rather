@@ -8,6 +8,7 @@ import Dashboard from '../pages/Dashboard';
 import Leaderboard from '../pages/Leaderboard';
 import NewPoll from '../pages/NewPoll';
 import Login from '../pages/Login';
+import SinglePoll from '../pages/SinglePoll';
 import Register from '../pages/Register';
 
 function App(props) {
@@ -19,6 +20,7 @@ function App(props) {
         <Route exact path="/" component={props.isLoggedIn ? Dashboard : Login} />
         <Route path="/leaderboard" component={props.isLoggedIn ? Leaderboard : Login} />
         <Route path="/add" component={props.isLoggedIn ? NewPoll : Login} />
+        <Route path="/polls/:id" component={props.isLoggedIn ? SinglePoll : Login} />
         <Route path="/register" component={Register} />
       </Switch>
     </div>
