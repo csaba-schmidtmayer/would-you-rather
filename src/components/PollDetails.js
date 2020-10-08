@@ -1,6 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import CreatedBy from '../components/CreatedBy';
+import UnansweredOption from '../components/UnansweredOption';
+import AnsweredOption from '../components/AnsweredOption';
+
 class PollDetails extends React.Component {
   constructor(props) {
     super(props);
@@ -9,14 +13,28 @@ class PollDetails extends React.Component {
   render() {
     return (
       <div>
-        PollDetails
+        <CreatedBy author={this.props.author} />
+        {this.props.hasBeenAnswered
+          ? (
+            <div>
+              <AnsweredOption />
+              <AnsweredOption />
+            </div>
+          )
+          : (
+            <div>
+              <UnansweredOption />
+              <UnansweredOption />
+            </div>
+          )
+        }
       </div>
     );
   }
 
 }
 
-const mapStateToProps = ({ polls, users }, props) => {
+const mapStateToProps = ({ polls, users, activeUser }, props) => {
   const { id } = props;
   const poll = polls[id];
   const author = users[poll.author].username;
@@ -25,6 +43,9 @@ const mapStateToProps = ({ polls, users }, props) => {
     id,
     poll,
     author,
+    hasBeenAnswered: (activeUser.answers[id] === undefined)
+      ? false
+      : true
   };
 };
 
