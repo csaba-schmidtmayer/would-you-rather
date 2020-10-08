@@ -8,23 +8,42 @@ import AnsweredOption from '../components/AnsweredOption';
 class PollDetails extends React.Component {
   constructor(props) {
     super(props);
+
+    this.handleOptionChoice = this.handleOptionChoice.bind(this);
+  }
+
+  handleOptionChoice(option) {
+    console.log(option);
   }
 
   render() {
+    const { author, poll, hasBeenAnswered } = this.props;
     return (
       <div>
-        <CreatedBy author={this.props.author} />
-        {this.props.hasBeenAnswered
+        <CreatedBy author={author} />
+        {hasBeenAnswered
           ? (
             <div>
-              <AnsweredOption />
-              <AnsweredOption />
+              <AnsweredOption
+
+              />
+              <AnsweredOption
+
+              />
             </div>
           )
           : (
             <div>
-              <UnansweredOption />
-              <UnansweredOption />
+              <UnansweredOption
+                text={poll.optionOne.text}
+                option="OptionOne"
+                onChoice={this.handleOptionChoice}
+              />
+              <UnansweredOption
+                text={poll.optionTwo.text}
+                option="OptionTwo"
+                onChoice={this.handleOptionChoice}
+              />
             </div>
           )
         }
