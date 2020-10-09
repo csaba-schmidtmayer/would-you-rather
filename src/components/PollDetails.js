@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import { answerPoll } from '../actions/pollActions';
 import CreatedBy from '../components/CreatedBy';
 import UnansweredOption from '../components/UnansweredOption';
 import AnsweredOption from '../components/AnsweredOption';
@@ -13,7 +14,7 @@ class PollDetails extends React.Component {
   }
 
   handleOptionChoice(option) {
-    console.log(option);
+    this.props.dispatch(answerPoll(this.props.id, option));
   }
 
   render() {

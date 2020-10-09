@@ -2,11 +2,11 @@ import { createLogic } from 'redux-logic';
 import { axios } from 'axios';
 import { showLoading, hideLoading } from 'react-redux-loading-bar';
 
-import { REGISTER, LOGIN, LOGOUT, NEW_POLL } from '../constants/actionTypes';
+import { REGISTER, LOGIN, LOGOUT, NEW_POLL, ANSWER_POLL } from '../constants/actionTypes';
 import { SUCCESS, API_PATH } from '../constants/const';
 import { setDbMsg, clearDbMsg } from '../actions/dbMsgActions';
 import { setActiveUser, populateUsers } from '../actions/userActions';
-import { populatePolls, addNewPoll } from '../actions/pollActions';
+import { populatePolls, addNewPoll, answerPollUpdate, answerpollRevert } from '../actions/pollActions';
 import { clearStore } from '../actions/storeActions';
 
 const checkForErrors = async (query, dispatch, ...args) => {
@@ -107,7 +107,7 @@ const loginUserLogic = createLogic({
                  avatar
                },
                answers{
-                 pollId,
+                 id,
                  option
                }
              }
@@ -246,9 +246,46 @@ const newPollLogic = createLogic({
   }
 });
 
+const answerPollLogic = createLogic({
+  type: ANSWER_POLL,
+
+  async process ({ getState, action, httpClient}, dispatch, done) {
+    dispatch(clearDbMsg());
+    dispatch(answerPollUpdate(action.payload));
+    try {
+      const reqAnswerPollData = {
+        query: `
+          mutation AnswerPoll(
+            $answer: PollAnswer
+          ){
+            answerPoll(
+              answer: $answer
+            )
+          }
+        `,
+        variables: {
+          answer: {
+            id: action.payload.id,
+            option: action.payload.option
+          }
+        }
+      };
+      await checkForErrors(httpClient.post, dispatch, API_PATH, reqAnswerPollData);
+    }
+    catch (error) {
+      console.log(error);
+      dispatch(answerpollRevert(action.payload));
+    }
+    finally {
+      done();
+    }
+  }
+});
+
 export default [
   registerUserLogic,
   loginUserLogic,
   logoutUserLogic,
-  newPollLogic
+  newPollLogic,
+  answerPollLogic
 ];

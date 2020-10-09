@@ -3,6 +3,9 @@ export const NEW_POLL = 'NEW_POLL';
 export const TAKE_POLL = 'TAKE_POLL';
 export const POPULATE_POLLS = 'POPULATE_POLLS';
 export const ADD_NEW_POLL = 'ADD_NEW_POLL';
+export const ANSWER_POLL = 'ANSWER_POLL';
+export const ANSWER_POLL_UPDATE = 'ANSWER_POLL_UPDATE';
+export const ANSWER_POLL_REVERT = 'ANSWER_POLL_REVERT';
 
 /* User */
 export const REGISTER = 'REGISTER';

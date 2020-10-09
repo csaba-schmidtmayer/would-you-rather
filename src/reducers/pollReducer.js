@@ -1,7 +1,16 @@
-import { POPULATE_POLLS, ADD_NEW_POLL, CLEAR_STORE } from '../constants/actionTypes';
+import produce from 'immer';
+
+import { POPULATE_POLLS, ADD_NEW_POLL, ANSWER_POLL_UPDATE, ANSWER_POLL_REVERT, CLEAR_STORE } from '../constants/actionTypes';
+
+//TODO: refactor to use a Poll class
+
+const parseOption = (option) => (
+  option.substr(0, 1).toLowerCase() + option.substr(1)
+);
 
 const pollReducer = (state = {}, action) => {
   const { type, payload } = action;
+  let nextState;
   switch(type) {
     case POPULATE_POLLS:
       const pollsAssocArr = {};
@@ -36,6 +45,16 @@ const pollReducer = (state = {}, action) => {
           created: new Date(payload.poll.created)
         }
       };
+    case ANSWER_POLL_UPDATE:
+      nextState = produce(state, draftState => {
+        draftState[payload.id][parseOption(payload.option)].numOfAnswers += 1;
+      });
+      return nextState;
+    case ANSWER_POLL_REVERT:
+    nextState = produce(state, draftState => {
+      draftState[payload.id][parseOption(payload.option)].numOfAnswers -= 1;
+    });
+    return nextState;
     case CLEAR_STORE:
       return {};
     default:
