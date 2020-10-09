@@ -1,9 +1,11 @@
 import React from 'react';
-import { connect } from 'react-redux';
 
 const AnsweredOption = (props) => (
   <div>
-    OPTION
+    {props.chosen ? <p>Your choice</p> : null}
+    <p>{props.text}</p>
+    <p>{props.number === 0 ? `Nobody` : `${props.number} user${props.number > 1 ? 's' : ''}`} chose this option</p>
+    <p>{props.percentage}%</p>
   </div>
 );
 

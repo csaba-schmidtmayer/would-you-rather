@@ -17,19 +17,39 @@ class PollDetails extends React.Component {
     this.props.dispatch(answerPoll(this.props.id, option));
   }
 
+  countPercentage() {
+    const { poll } = this.props;
+    const sum = poll.optionOne.numOfAnswers + poll.optionTwo.numOfAnswers;
+    const optionOnePercent = sum === 0
+      ? 0
+      : Math.round(poll.optionOne.numOfAnswers / sum * 100);
+    const optionTwoPercent = sum === 0
+      ? 0
+      : 100 - optionOnePercent;
+    return {optionOnePercent, optionTwoPercent};
+  }
+
   render() {
-    const { author, poll, hasBeenAnswered } = this.props;
+    const { author, poll, answer } = this.props;
+    const { optionOnePercent, optionTwoPercent } = this.countPercentage();
+
     return (
       <div>
         <CreatedBy author={author} />
-        {hasBeenAnswered
+        {answer !== undefined
           ? (
             <div>
               <AnsweredOption
-
+                text={poll.optionOne.text}
+                chosen={answer === 'OptionOne' ? true : false}
+                number={poll.optionOne.numOfAnswers}
+                percentage={optionOnePercent}
               />
               <AnsweredOption
-
+                text={poll.optionTwo.text}
+                chosen={answer === 'OptionTwo' ? true : false}
+                number={poll.optionTwo.numOfAnswers}
+                percentage={optionTwoPercent}
               />
             </div>
           )
@@ -63,9 +83,7 @@ const mapStateToProps = ({ polls, users, activeUser }, props) => {
     id,
     poll,
     author,
-    hasBeenAnswered: (activeUser.answers[id] === undefined)
-      ? false
-      : true
+    answer: activeUser.answers[id]
   };
 };
 
