@@ -33,6 +33,7 @@ class Login extends React.Component {
   render() {
     return (
       <div>
+        {this.props.errorMsg !== '' ? <p>{this.props.errorMsg}</p> : null}
         <form onSubmit={this.handleLoginSubmit}>
           <input
             name="username"
@@ -57,4 +58,8 @@ class Login extends React.Component {
   }
 }
 
-export default connect()(Login);
+const mapStateToProps = ({ dbMsg }) => ({
+  errorMsg: dbMsg.msgText
+});
+
+export default connect(mapStateToProps)(Login);
