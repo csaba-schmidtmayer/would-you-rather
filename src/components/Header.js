@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { logout } from '../actions/userActions';
+import avatars from '../svg/avatars';
 
 class Header extends React.Component {
   constructor(props) {
@@ -17,7 +18,7 @@ class Header extends React.Component {
 
   render() {
     return (
-      <div className="header">
+      <header id="main-header">
         <Link to="/">
           Dashboard
         </Link>
@@ -34,7 +35,7 @@ class Header extends React.Component {
             <li onClick={this.logout}>Logout: {this.props.username}</li>
           </ul>
         </div>
-      </div>
+      </header>
     );
   }
 }
