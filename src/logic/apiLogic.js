@@ -1,6 +1,8 @@
 import { createLogic } from 'redux-logic';
 import { axios } from 'axios';
 import { showLoading, hideLoading } from 'react-redux-loading-bar';
+import sha256 from 'crypto-js/sha256';
+import Hex from 'crypto-js/enc-hex';
 
 import { REGISTER, LOGIN, LOGOUT, NEW_POLL, ANSWER_POLL } from '../constants/actionTypes';
 import { SUCCESS, API_PATH } from '../constants/const';
@@ -26,6 +28,10 @@ const checkForErrors = async (query, dispatch, ...args) => {
   }
 };
 
+const hashPwd = (password) => (
+  Hex.stringify(sha256(password))
+);
+
 const registerUserLogic = createLogic({
   type: REGISTER,
 
@@ -48,7 +54,7 @@ const registerUserLogic = createLogic({
       variables: {
         credentials: {
           username: action.payload.username,
-          password: action.payload.password
+          password: hashPwd(action.payload.password)
         },
         name: action.payload.name,
         avatar: action.payload.avatar
@@ -91,7 +97,7 @@ const loginUserLogic = createLogic({
         variables: {
           credentials: {
             username: action.payload.username,
-            password: action.payload.password
+            password: hashPwd(action.payload.password)
           }
         }
       };
