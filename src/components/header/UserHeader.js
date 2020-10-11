@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { logout } from '../../actions/userActions';
+import UserPanel from './UserPanel';
 import avatars from '../../svg/avatars';
 import caretDown from '../../svg/caret-down.svg';
 import caretUp from '../../svg/caret-up.svg';
@@ -14,12 +14,7 @@ class UserHeader extends React.Component {
       isUserPanelVisible: false
     };
 
-    this.logout = this.logout.bind(this);
     this.handleUserPanel = this.handleUserPanel.bind(this);
-  }
-
-  logout() {
-    this.props.dispatch(logout());
   }
 
   handleUserPanel() {
@@ -37,7 +32,7 @@ class UserHeader extends React.Component {
         <div className="user-interaction">
           <img
             className="main-header-icon"
-            src={caretDown}
+            src={this.state.isUserPanelVisible ? caretUp : caretDown}
           />
           <img
             className="main-header-icon"
@@ -45,12 +40,7 @@ class UserHeader extends React.Component {
           />
         </div>
         {this.state.isUserPanelVisible
-          ? <div className="user-panel">
-            <ul>
-              <li>View profile</li>
-              <li onClick={this.logout}>Logout: {this.props.username}</li>
-            </ul>
-          </div>
+          ? <UserPanel />
           : null
         }
       </div>
@@ -59,8 +49,6 @@ class UserHeader extends React.Component {
 }
 
 const mapStateToProps = ({ activeUser }) => ({
-  username: activeUser.username,
-  name: activeUser.name,
   avatar: activeUser.avatar
 });
 
