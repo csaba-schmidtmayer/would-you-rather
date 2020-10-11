@@ -1,7 +1,8 @@
 body {
   background-color: #ebeaee;
   margin: 0;
-  font-family: 'Open Sans', sans-serif;;
+  font-family: 'Open Sans', sans-serif;
+  color: #5d5c61;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -19,6 +20,7 @@ code {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
 .navbar {
@@ -71,7 +73,62 @@ code {
 }
 
 .user-panel {
+  display: flex;
+  flex-direction: column;
   position: absolute;
-  top: 100%;
+  top: 110%;
   min-width: 240px;
+  background-color: #fff;
+  border: 1px solid #938e93;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.user-data span {
+  display: block;
+  font-family: 'Titillium Web', sans-serif;
+}
+
+.full-name {
+  font-size: 1.2em;
+  font-weight: 600;
+}
+
+.username {
+  margin-top: -4px;
+  margin-left: 12px;
+  font-weight: 200;
+  font-style: italic;
+}
+
+.user-panel>div {
+  padding: 10px;
+}
+
+.user-panel .divider, .user-data-action-group {
+  border-top: 1px solid #938e93;
+}
+
+.user-panel .divider {
+  background-color: #557a95;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+.user-data-action {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  cursor: pointer;
+}
+
+.user-data-action:first-child {
+  margin-top: 0px;
+}
+
+.user-data-action:last-child {
+  margin-bottom: 0px;
+}
+
+.user-data-action:hover {
+  color: #7395ae;
 }
