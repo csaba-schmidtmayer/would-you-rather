@@ -26,6 +26,7 @@ code {
 .navbar {
   height: 60px;
   min-width: 640px;
+  max-width: 800px;
   display: flex;
   justify-content: center;
   flex-direction: row;
@@ -131,4 +132,20 @@ code {
 
 .user-data-action:hover {
   color: #7395ae;
+}
+
+/* Main content area */
+
+.app-body {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.main-content-area {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 640px;
+  max-width: 800px;
 }

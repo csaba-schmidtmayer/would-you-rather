@@ -16,13 +16,17 @@ function App(props) {
     <div className="App">
       {props.isLoggedIn ? <Header /> : null}
       <LoadingBar />
-      <Switch>
-        <Route exact path="/" component={props.isLoggedIn ? Dashboard : Login} />
-        <Route path="/leaderboard" component={props.isLoggedIn ? Leaderboard : Login} />
-        <Route path="/add" component={props.isLoggedIn ? NewPoll : Login} />
-        <Route path="/polls/:id" component={props.isLoggedIn ? SinglePoll : Login} />
-        <Route path="/register" component={Register} />
-      </Switch>
+      <div className="app-body">
+        <div className="main-content-area">
+          <Switch>
+            <Route exact path="/" component={props.isLoggedIn ? Dashboard : Login} />
+            <Route path="/leaderboard" component={props.isLoggedIn ? Leaderboard : Login} />
+            <Route path="/add" component={props.isLoggedIn ? NewPoll : Login} />
+            <Route path="/polls/:id" component={props.isLoggedIn ? SinglePoll : Login} />
+            <Route path="/register" component={Register} />
+          </Switch>
+        </div>
+      </div>
     </div>
   );
 }
