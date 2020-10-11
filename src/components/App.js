@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Switch, Route } from 'react-router-dom';
 import LoadingBar from 'react-redux-loading-bar';
 
-import Header from './Header';
+import Header from './header/Header';
 import Dashboard from '../pages/Dashboard';
 import Leaderboard from '../pages/Leaderboard';
 import NewPoll from '../pages/NewPoll';
