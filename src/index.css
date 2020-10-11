@@ -13,7 +13,67 @@ code {
     monospace;
 }
 
+/* Header */
+
 #main-header {
   background-color: #5d5c61;
   height: 60px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.navbar {
+  height: 60px;
+  min-width: 640px;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}
+
+.navbar-link {
+  height: 60px;
+  min-width: 90px;
+  max-width: 120px;
+  flex-basis: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.navbar-link .navbar-link-active {
+  height: 3px;
+  margin-left: 5px;
+  margin-right: 5px;
+  border-radius: 3px;
+  background-color: #ebeaee;
+  visibility: hidden;
+}
+
+.navbar-link:hover .navbar-link-active {
+  visibility: visible;
+}
+
+.main-header-icon {
+  height: 40px;
+  width: 40px;
+  margin: auto;
+}
+
+.user-header {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.user-interaction {
+  display: flex;
+  flex-direction: row;
+  cursor: pointer;
+}
+
+.user-panel {
+  position: absolute;
+  top: 100%;
+  min-width: 240px;
 }
