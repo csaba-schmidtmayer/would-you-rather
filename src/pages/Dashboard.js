@@ -1,39 +1,67 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 
+import DashboardFilter from '../components/DashboardFilter';
 import PollOverview from '../components/PollOverview';
 
 class Dashboard extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      visibleSet: 'unanswered'
+    }
+
+    this.handleToggle = this.handleToggle.bind(this);
+  }
+
+  handleToggle() {
+    this.setState((prevState) => ({
+      ...prevState,
+      visibleSet: prevState.visibleSet === 'unanswered'
+        ? 'answered'
+        : 'unanswered'
+    }));
+  }
+
   render() {
     return (
-      <div>
-        <div>
-          <p>Unanswered Polls</p>
-          <div>
-            {this.props.unansweredPolls.map((poll) => (
-              <PollOverview
-                key={poll.id}
-                id={poll.id}
-                optionOne={poll.optionOne}
-                optionTwo={poll.optionTwo}
-              />
-            ))}
-          </div>
-        </div>
-        <div>
-          <p>Answered Polls</p>
-          <div>
-            {this.props.answeredPolls.map((poll) => (
-              <PollOverview
-                key={poll.id}
-                id={poll.id}
-                optionOne={poll.optionOne}
-                optionTwo={poll.optionTwo}
-              />
-            ))}
-          </div>
-        </div>
-      </div>
+      <Fragment>
+        <DashboardFilter
+          toggleFilter={this.handleToggle}
+          direction={this.state.visibleSet}
+        />
+        {this.state.visibleSet === 'unanswered'
+          ? (
+            <div>
+              <div>
+                {this.props.unansweredPolls.map((poll) => (
+                  <PollOverview
+                    key={poll.id}
+                    id={poll.id}
+                    optionOne={poll.optionOne}
+                    optionTwo={poll.optionTwo}
+                  />
+                ))}
+              </div>
+            </div>
+          )
+          : (
+            <div>
+              <div>
+                {this.props.answeredPolls.map((poll) => (
+                  <PollOverview
+                    key={poll.id}
+                    id={poll.id}
+                    optionOne={poll.optionOne}
+                    optionTwo={poll.optionTwo}
+                  />
+                ))}
+              </div>
+            </div>
+          )
+        }
+      </Fragment>
     );
   }
 }
