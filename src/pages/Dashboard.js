@@ -1,66 +1,105 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 
-import DashboardFilter from '../components/DashboardFilter';
+import DashboardMenu from '../components/DashboardMenu';
 import PollOverview from '../components/PollOverview';
+import { FILTER_UNANSWERED, FILTER_ANSWERED, FILTER_ALL, SORT_BY_NEWEST, SORT_BY_OLDEST, SORT_BY_MOST_POPULAR, SORT_BY_LEAST_POPULAR } from '../constants/const';
 
 class Dashboard extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      visibleSet: 'unanswered'
+      searchValue: '',
+      filterValue: FILTER_UNANSWERED,
+      sortValue: SORT_BY_NEWEST
     }
 
-    this.handleToggle = this.handleToggle.bind(this);
+    this.handleFilterChange = this.handleFilterChange.bind(this);
+    this.handleSearchChange = this.handleSearchChange.bind(this);
+    this.handleSearchCancel = this.handleSearchCancel.bind(this);
+    this.handleSortChange = this.handleSortChange.bind(this);
   }
 
-  handleToggle() {
+  handleFilterChange(value) {
     this.setState((prevState) => ({
       ...prevState,
-      visibleSet: prevState.visibleSet === 'unanswered'
-        ? 'answered'
-        : 'unanswered'
+      filterValue: value
     }));
+  }
+
+  handleSearchChange(event) {
+    const value = event.target.value;
+    event.preventDefault();
+    this.setState((prevState) => ({
+      ...prevState,
+      searchValue: value
+    }));
+  }
+
+  handleSearchCancel() {
+    this.setState((prevState) => ({
+      ...prevState,
+      searchValue: ''
+    }));
+  }
+
+  handleSortChange(value) {
+    this.setState((prevState) => ({
+      sortValue: value
+    }));
+  }
+
+  mapOutPolls() {
+    const { polls } = this.props;
+    const { searchValue, filterValue, sortValue } = this.state;
+
+    const searchedPolls = searchValue === ''
+      ? polls
+      : polls.filter((poll) => (
+        poll.optionOne.toLowerCase().includes(searchValue.toLowerCase()) ||
+        poll.optionTwo.toLowerCase().includes(searchValue.toLowerCase())
+      ));
+
+    const filteredPolls = filterValue === FILTER_ALL
+      ? searchedPolls
+      : filterValue === FILTER_UNANSWERED
+        ? searchedPolls.filter((poll) => (poll.answer === null))
+        : searchedPolls.filter((poll) => (poll.answer !== null));
+
+    const sortedPolls = sortValue === SORT_BY_NEWEST
+      ? filteredPolls.sort((a, b) => (b.created - a.created))
+      : sortValue === SORT_BY_OLDEST
+        ? filteredPolls.sort((a, b) => (a.created - b.created))
+        : sortValue === SORT_BY_MOST_POPULAR
+          ? filteredPolls.sort((a, b) => (b.numOfAnswers - a.numOfAnswers))
+          : filteredPolls.sort((a, b) => (a.numOfAnswers - b.numOfAnswers));
+
+    return filteredPolls.map((poll) => (
+      <PollOverview
+        key={poll.id}
+        id={poll.id}
+        optionOne={poll.optionOne}
+        optionTwo={poll.optionTwo}
+      />
+    ));
   }
 
   render() {
     return (
       <Fragment>
-        <DashboardFilter
-          toggleFilter={this.handleToggle}
-          direction={this.state.visibleSet}
+        <DashboardMenu
+          activeSearch={this.state.searchValue}
+          onSearchChange={this.handleSearchChange}
+          onSearchCancel={this.handleSearchCancel}
+          activeFilter={this.state.filterValue}
+          onFilterChange={this.handleFilterChange}
+          activeSort={this.state.sortValue}
+          onSortChange={this.handleSortChange}
         />
-        {this.state.visibleSet === 'unanswered'
-          ? (
-            <div>
-              <div>
-                {this.props.unansweredPolls.map((poll) => (
-                  <PollOverview
-                    key={poll.id}
-                    id={poll.id}
-                    optionOne={poll.optionOne}
-                    optionTwo={poll.optionTwo}
-                  />
-                ))}
-              </div>
-            </div>
-          )
-          : (
-            <div>
-              <div>
-                {this.props.answeredPolls.map((poll) => (
-                  <PollOverview
-                    key={poll.id}
-                    id={poll.id}
-                    optionOne={poll.optionOne}
-                    optionTwo={poll.optionTwo}
-                  />
-                ))}
-              </div>
-            </div>
-          )
-        }
+        <div>
+          {this.mapOutPolls()}
+        </div>
       </Fragment>
     );
   }
@@ -71,15 +110,14 @@ const mapStateToProps = ({ polls, activeUser }) => {
     id: key,
     optionOne: polls[key].optionOne.text,
     optionTwo: polls[key].optionTwo.text,
+    created: polls[key].created,
+    numOfAnswers: polls[key].optionOne.numOfAnswers + polls[key].optionTwo.numOfAnswers,
     answer: activeUser.answers[key] !== undefined
       ? activeUser.answers[key]
       : null
   }));
-  const unansweredPolls = allPolls.filter((poll) => (poll.answer === null));
-  const answeredPolls = allPolls.filter((poll) => (poll.answer !== null));
   return {
-    unansweredPolls,
-    answeredPolls
+    polls: allPolls
   };
 };
 

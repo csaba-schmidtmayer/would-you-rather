@@ -1,3 +1,5 @@
+/* General styles */
+
 body {
   background-color: #ebeaee;
   margin: 0;
@@ -17,6 +19,17 @@ a:active,
 a:visited,
 a:hover {
   text-decoration: none;
+}
+
+.divider {
+  background-color: #557a95;
+  font-family: 'Titillium Web', sans-serif;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+.hidden {
+  visibility: hidden;
 }
 
 /* Header */
@@ -126,12 +139,6 @@ a:hover {
   border-top: 1px solid #938e93;
 }
 
-.user-panel .divider {
-  background-color: #557a95;
-  color: #fff;
-  text-transform: uppercase;
-}
-
 .user-data-action {
   margin-top: 5px;
   margin-bottom: 5px;
@@ -165,46 +172,134 @@ a:hover {
   width: 800px;
 }
 
-/* Dashboard */
+/* Dashboard menu */
 
-.dashboard-filter {
+.dashboard-menu {
+  position: fixed;
+  top: 100px;
+  left: 40px;
   display: flex;
   flex-direction: column;
-  width: 680px;
-  background-color: #557a95;
+  width: 240px;
+  background-color: #fff;
   border: 1px solid #938e93;
   border-radius: 5px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   margin: auto;
 }
 
-.dashboard-toggle {
+.dashboard-menu>div {
+  padding: 10px;
+}
+
+.dashboard-menu-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.dashboard-search {
+  position: relative;
   display: flex;
   flex-direction: row;
-  padding: 10px;
-  justify-content: center;
+  padding: 5px;
+  border: 1px solid #938e93;
+  border-radius: 5px;
+  cursor: text;
+}
+
+.dashboard-search input {
+  display: block;
+  min-width: 100px;
+  border: 0 solid #fff;
+  margin: auto;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1em;
+  color: #5d5c61;
+}
+
+.dashboard-search input:focus {
+  outline: none;
+}
+
+.search-icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 5px;
+}
+
+.cancel-icon {
+  width: 24px;
+  height: 24px;
+  margin-left: 5px;
   cursor: pointer;
 }
 
-.toggle-caption {
-  display: block;
-  width: 50%;
-  margin: auto;
-  font-family: 'Titillium Web', sans-serif;
-  font-size: 1.5em;
-  font-weight: 400;
-  text-align: center;
-  color: #fff;
+.dashboard-toggle-option {
+  display: flex;
+  flex-direction: row;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  cursor: pointer;
 }
 
-.toggle-caption.active {
-  font-weight: 600;
+.dashboard-toggle-option:hover {
+  color: #7395ae;
+}
+
+.dashboard-toggle-option>span {
+  display: block;
+  padding-left: 15px;
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
 .toggle-icon {
   width: 40px;
   height: 40px;
 }
+
+.dashboard-sort {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.dashboard-sort.open {
+}
+
+.dashboard-sort>span {
+  flex-grow: 1;
+}
+
+.sort-icon {
+  width: 20px;
+  height: 20px;
+  flex-grow: 0;
+}
+
+.dashboard-sort-menu {
+  position: absolute;
+  top: 100%;
+  width: 200px;
+  background-color: #fff;
+  padding: 10px;
+  border: 1px solid #938e93;
+}
+
+.dashboard-sort-option {
+  display: block;
+  padding: 5px;
+}
+
+.dashboard-sort-option:hover {
+  color: #7395ae;
+}
+
+/* Poll overviews */
 
 .poll-overview {
   width: 680px;
@@ -216,6 +311,10 @@ a:hover {
   margin-right: auto;
   margin-top: 20px;
   margin-bottom: 20px;
+}
+
+.poll-overview:first-child {
+  margin-top: 100px;
 }
 
 .poll-overview-header {
@@ -265,5 +364,4 @@ span.poll-overview-divider {
   background-color: #fff;
   text-align: center;
   text-transform: uppercase;
-
 }
