@@ -103,25 +103,6 @@ const loginUserLogic = createLogic({
       };
       const tokenData = await checkForErrors(httpClient.post, dispatch, API_PATH, reqTokenData);
       httpClient.defaults.headers.common['Authorization'] = tokenData.loginUser;
-      const reqActiveUserData = {
-	       query: `
-           query GetActiveUser{
-             activeUser{
-               userData{
-                 username,
-                 name,
-                 avatar
-               },
-               answers{
-                 id,
-                 option
-               }
-             }
-           }
-         `
-      };
-      const activeUserData = await checkForErrors(httpClient.post, dispatch, API_PATH, reqActiveUserData);
-      dispatch(setActiveUser(activeUserData.activeUser));
       const reqPollsData = {
         query: `
           query GetAllPolls{
@@ -158,6 +139,25 @@ const loginUserLogic = createLogic({
       };
       const usersData = await checkForErrors(httpClient.post, dispatch, API_PATH, reqUsersData);
       dispatch(populateUsers(usersData.getAllUsers));
+      const reqActiveUserData = {
+         query: `
+           query GetActiveUser{
+             activeUser{
+               userData{
+                 username,
+                 name,
+                 avatar
+               },
+               answers{
+                 id,
+                 option
+               }
+             }
+           }
+         `
+      };
+      const activeUserData = await checkForErrors(httpClient.post, dispatch, API_PATH, reqActiveUserData);
+      dispatch(setActiveUser(activeUserData.activeUser));
     }
     catch (error) {
       console.log(error);
