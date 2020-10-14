@@ -299,9 +299,10 @@ a:hover {
   color: #7395ae;
 }
 
-/* Poll overviews */
+/* Poll views */
 
-.poll-overview {
+.poll-overview,
+.poll-detailed {
   width: 680px;
   background-color: #fff;
   border: 1px solid #938e93;
@@ -313,11 +314,12 @@ a:hover {
   margin-bottom: 20px;
 }
 
-.poll-overview:first-child {
+.poll-overview:first-child,
+.poll-detailed {
   margin-top: 100px;
 }
 
-.poll-overview-header {
+.poll-header {
   padding: 10px;
   background-color: #7395ae;
   border-bottom: 1px solid #938e93;
@@ -329,15 +331,15 @@ a:hover {
   transition-duration: 0.5s;
 }
 
-.poll-overview:hover .poll-overview-header {
+.poll-overview:hover .poll-header {
   background-color: #557a95;
 }
 
-.poll-overview-options {
+.poll-options {
   position: relative;
 }
 
-.poll-overview-options span {
+.poll-options span {
   display: block;
   padding-left: 10px;
   padding-right: 10px;
@@ -346,24 +348,24 @@ a:hover {
   color: #5d5c61;
 }
 
-.poll-overview-option {
+.poll-option {
   display: flex;
   flex-direction: row;
 }
 
-.poll-overview-option:first-child {
+.poll-option:first-child {
   border-bottom: 1px solid #938e93;
 }
 
-.poll-overview-option:last-child {
+.poll-option:last-child {
   text-align: right;
 }
 
-.poll-overview-option>span {
+.poll-option>span {
   flex-grow: 1;
 }
 
-span.poll-overview-divider {
+span.poll-divider {
   position: absolute;
   left: 50%;
   top: 51px;
@@ -389,4 +391,46 @@ span.poll-overview-divider {
 
 .answer-right {
   border-color: transparent #7395ae transparent transparent;
+}
+
+.poll-author {
+  display: flex;
+  flex-direction: row;
+  padding: 10px;
+  border-bottom: 1px solid #938e93;
+  font-family: 'Titillium Web', sans-serif;
+}
+
+.poll-author-avatar {
+  width: 100px;
+  height: 100px;
+}
+
+.poll-author-data {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin-left: 30px;
+}
+
+.creation-date {
+  margin-top: auto;
+}
+
+.poll-detailed .poll-header {
+  background-color: #557a95;
+}
+
+.poll-detailed .poll-option {
+  cursor: pointer;
+}
+
+.poll-detailed .answer-left,
+.poll-detailed .answer-right {
+  visibility: hidden;
+}
+
+.poll-detailed .poll-option:hover .answer-left,
+.poll-detailed .poll-option:hover .answer-right {
+  visibility: visible;
 }

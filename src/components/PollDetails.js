@@ -34,40 +34,52 @@ class PollDetails extends React.Component {
     const { optionOnePercent, optionTwoPercent } = this.countPercentage();
 
     return (
-      <div>
-        <CreatedBy author={author} />
-        {answer !== undefined
-          ? (
-            <div>
-              <AnsweredOption
-                text={poll.optionOne.text}
-                chosen={answer === 'OptionOne' ? true : false}
-                number={poll.optionOne.numOfAnswers}
-                percentage={optionOnePercent}
-              />
-              <AnsweredOption
-                text={poll.optionTwo.text}
-                chosen={answer === 'OptionTwo' ? true : false}
-                number={poll.optionTwo.numOfAnswers}
-                percentage={optionTwoPercent}
-              />
-            </div>
-          )
-          : (
-            <div>
-              <UnansweredOption
-                text={poll.optionOne.text}
-                option="OptionOne"
-                onChoice={this.handleOptionChoice}
-              />
-              <UnansweredOption
-                text={poll.optionTwo.text}
-                option="OptionTwo"
-                onChoice={this.handleOptionChoice}
-              />
-            </div>
-          )
-        }
+      <div className="poll-detailed">
+        <CreatedBy
+          author={author}
+          created={poll.created}
+         />
+         <div className="poll-header">
+           Would you rather...?
+         </div>
+         <div className="poll-options">
+          {
+            answer === undefined
+              ? (
+                <UnansweredOption
+                  text={poll.optionOne.text}
+                  option="OptionOne"
+                  onChoice={this.handleOptionChoice}
+                />
+              )
+              : (
+                <AnsweredOption
+                  text={poll.optionOne.text}
+                  chosen={answer === 'OptionOne' ? true : false}
+                  number={poll.optionOne.numOfAnswers}
+                  percentage={optionOnePercent}
+                />
+              )
+          }
+          {
+            answer === undefined
+              ? (
+                <UnansweredOption
+                  text={poll.optionTwo.text}
+                  option="OptionTwo"
+                  onChoice={this.handleOptionChoice}
+                />
+              )
+              : (
+                <AnsweredOption
+                  text={poll.optionTwo.text}
+                  chosen={answer === 'OptionTwo' ? true : false}
+                  number={poll.optionTwo.numOfAnswers}
+                  percentage={optionTwoPercent}
+                />
+              )
+          }
+         </div>
       </div>
     );
   }
