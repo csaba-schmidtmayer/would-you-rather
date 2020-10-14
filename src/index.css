@@ -337,7 +337,7 @@ a:hover {
   position: relative;
 }
 
-.poll-overview-options>span {
+.poll-overview-options span {
   display: block;
   padding-left: 10px;
   padding-right: 10px;
@@ -346,12 +346,21 @@ a:hover {
   color: #5d5c61;
 }
 
-.poll-overview-options>span:first-child {
+.poll-overview-option {
+  display: flex;
+  flex-direction: row;
+}
+
+.poll-overview-option:first-child {
   border-bottom: 1px solid #938e93;
 }
 
-.poll-overview-options>span:last-child {
+.poll-overview-option:last-child {
   text-align: right;
+}
+
+.poll-overview-option>span {
+  flex-grow: 1;
 }
 
 span.poll-overview-divider {
@@ -364,4 +373,20 @@ span.poll-overview-divider {
   background-color: #fff;
   text-align: center;
   text-transform: uppercase;
+}
+
+.answer-left,
+.answer-right {
+  margin: auto;
+  flex-grow: 0;
+  border-width: 20px;
+  border-style: solid;
+}
+
+.answer-left {
+  border-color: transparent transparent transparent #7395ae;
+}
+
+.answer-right {
+  border-color: transparent #7395ae transparent transparent;
 }

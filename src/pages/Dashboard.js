@@ -81,6 +81,7 @@ class Dashboard extends React.Component {
         id={poll.id}
         optionOne={poll.optionOne}
         optionTwo={poll.optionTwo}
+        answer={poll.answer}
       />
     ));
   }
