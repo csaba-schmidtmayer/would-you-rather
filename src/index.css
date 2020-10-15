@@ -434,3 +434,8 @@ span.poll-divider {
 .poll-detailed .poll-option:hover .answer-right {
   visibility: visible;
 }
+
+.poll-chart {
+  padding: 10px;
+  border-top: 1px solid #938e93;
+}

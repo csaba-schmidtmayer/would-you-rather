@@ -1,5 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { HorizontalBar } from 'react-chartjs-2';
+import 'chartjs-plugin-stacked100';
 
 import { answerPoll } from '../actions/pollActions';
 import CreatedBy from '../components/CreatedBy';
@@ -11,6 +13,33 @@ class PollDetails extends React.Component {
     super(props);
 
     this.handleOptionChoice = this.handleOptionChoice.bind(this);
+
+    this.chartOptions = {
+      maintainAspectRatio: false,
+      tooltips: {
+        mode: 'nearest',
+        titleFontFamily: `'Titillium Web', sans-serif`,
+        bodyFontFamily: `'Open Sans', sans-serif`
+      },
+      legend: {
+        labels: {
+          fontFamily: `'Titillium Web', sans-serif`
+        }
+      },
+      scales: {
+        yAxes: [{
+          ticks: {
+            callback: (value, index, values) => ('')
+            }
+        }]
+      },
+      plugins: {
+        stacked100: {
+          enable: true,
+          precision: 0
+        }
+      }
+    };
   }
 
   handleOptionChoice(option) {
@@ -81,6 +110,36 @@ class PollDetails extends React.Component {
               )
           }
          </div>
+         {
+           answer === undefined
+            ? null
+            : (
+              <div className="poll-chart">
+                <HorizontalBar
+                  height={140}
+                  data={
+                    {
+                      labels: ['Would you rather...?'],
+                      datasets:
+                        [
+                          {
+                            label: `${poll.optionOne.text}${answer === 'OptionOne' ? ' (your choice)' : ''}`,
+                            data: [poll.optionOne.numOfAnswers],
+                            backgroundColor: answer === 'OptionOne' ? '#7395ae' : '#938e93'
+                          },
+                          {
+                            label: `${poll.optionTwo.text}${answer === 'OptionTwo' ? ' (your choice)' : ''}`,
+                            data: [poll.optionTwo.numOfAnswers],
+                            backgroundColor: answer === 'OptionTwo' ? '#7395ae' : '#938e93'
+                          }
+                        ]
+                    }
+                  }
+                  options={this.chartOptions}
+                />
+              </div>
+            )
+         }
       </div>
     );
   }
