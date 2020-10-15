@@ -12,7 +12,9 @@ const PollOverview = (props) => (
           <span>{props.optionOne}</span>
           <div className={`answer-right${props.answer === 'OptionOne' ? '' : ' hidden'}`} />
         </div>
-        <span className="poll-divider">or</span>
+        <div className="poll-divider-container">
+          <span className="poll-divider">or</span>
+        </div>
         <div className="poll-option">
           <div className={`answer-left${props.answer === 'OptionTwo' ? '' : ' hidden'}`} />
           <span>{props.optionTwo}</span>

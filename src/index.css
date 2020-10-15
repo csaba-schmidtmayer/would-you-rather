@@ -365,10 +365,14 @@ a:hover {
   flex-grow: 1;
 }
 
+.poll-divider-container {
+  position: relative;
+}
+
 span.poll-divider {
   position: absolute;
   left: 50%;
-  top: 44%;
+  bottom: -11px;
   width: 90px;
   padding: 0px;
   margin-left: -45px;
