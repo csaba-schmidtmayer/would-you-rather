@@ -61,6 +61,7 @@ class PollDetails extends React.Component {
                 />
               )
           }
+          <span className="poll-divider">or</span>
           {
             answer === undefined
               ? (

@@ -368,7 +368,7 @@ a:hover {
 span.poll-divider {
   position: absolute;
   left: 50%;
-  top: 51px;
+  top: 40%;
   width: 90px;
   padding: 0px;
   margin-left: -45px;
