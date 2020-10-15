@@ -84,6 +84,7 @@ class PollDetails extends React.Component {
               : (
                 <AnsweredOption
                   text={poll.optionOne.text}
+                  option="OptionOne"
                   chosen={answer === 'OptionOne' ? true : false}
                   number={poll.optionOne.numOfAnswers}
                   percentage={optionOnePercent}
@@ -103,6 +104,7 @@ class PollDetails extends React.Component {
               : (
                 <AnsweredOption
                   text={poll.optionTwo.text}
+                  option="OptionTwo"
                   chosen={answer === 'OptionTwo' ? true : false}
                   number={poll.optionTwo.numOfAnswers}
                   percentage={optionTwoPercent}

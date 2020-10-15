@@ -368,13 +368,14 @@ a:hover {
 span.poll-divider {
   position: absolute;
   left: 50%;
-  top: 40%;
+  top: 44%;
   width: 90px;
   padding: 0px;
   margin-left: -45px;
   background-color: #fff;
   text-align: center;
   text-transform: uppercase;
+  cursor: pointer;
 }
 
 .answer-left,
@@ -421,18 +422,37 @@ span.poll-divider {
   background-color: #557a95;
 }
 
-.poll-detailed .poll-option {
+.poll-detailed .poll-option.unanswered {
   cursor: pointer;
 }
 
-.poll-detailed .answer-left,
-.poll-detailed .answer-right {
+.poll-detailed .poll-option.answered {
+  cursor: default;
+}
+
+.poll-option.unanswered .answer-left,
+.poll-option.unanswered .answer-right {
   visibility: hidden;
 }
 
-.poll-detailed .poll-option:hover .answer-left,
-.poll-detailed .poll-option:hover .answer-right {
+.poll-option.unanswered:hover .answer-left,
+.poll-option.unanswered:hover .answer-right {
   visibility: visible;
+}
+
+.poll-option-data {
+  flex-grow: 1;
+}
+
+.poll-option-data span.answer-text {
+  font-size: 1.1em;
+  font-weight: 600;
+}
+
+span.number-of-answers {
+  padding-top: 0;
+  font-size: 0.9em;
+  font-weight: 400;
 }
 
 .poll-chart {

@@ -1,11 +1,25 @@
 import React from 'react';
 
 const AnsweredOption = (props) => (
-  <div>
-    {props.chosen ? <p>Your choice</p> : null}
-    <p>{props.text}</p>
-    <p>{props.number === 0 ? `Nobody` : `${props.number} user${props.number > 1 ? 's' : ''}`} chose this option</p>
-    <p>{props.percentage}%</p>
+  <div className="poll-option answered">
+    {
+      props.chosen && props.option === 'OptionTwo'
+        ? (<div className="answer-left" />)
+        : null
+    }
+    <div className="poll-option-data">
+      <span className="answer-text">
+        {props.text}
+      </span>
+      <span className="number-of-answers">
+        {`${props.number === 0 ? 'Nobody' : props.number + ' user'}${props.number > 1 ? 's' : ''} chose this option (${props.percentage}%)`}
+      </span>
+    </div>
+    {
+      props.chosen && props.option === 'OptionOne'
+        ? (<div className="answer-right" />)
+        : null
+    }
   </div>
 );
 

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 const UnansweredOption = (props) => (
   <div
-    className="poll-option"
+    className="poll-option unanswered"
     onClick={() => props.onChoice(props.option)}
   >
     {
@@ -11,7 +11,9 @@ const UnansweredOption = (props) => (
         ? (<div className="answer-left" />)
         : null
     }
-    <span>{props.text}</span>
+    <span className="answer-text">
+      {props.text}
+    </span>
     {
       props.option === 'OptionOne'
         ? (<div className="answer-right" />)
