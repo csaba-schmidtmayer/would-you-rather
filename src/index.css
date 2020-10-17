@@ -299,10 +299,11 @@ a:hover {
   color: #7395ae;
 }
 
-/* Poll views */
+/* Common styles */
 
 .poll-overview,
-.poll-detailed {
+.poll-detailed,
+.user {
   width: 680px;
   background-color: #fff;
   border: 1px solid #938e93;
@@ -315,11 +316,13 @@ a:hover {
 }
 
 .poll-overview:first-child,
-.poll-detailed {
+.poll-detailed,
+.user:first-child {
   margin-top: 100px;
 }
 
-.poll-header {
+.poll-header,
+.stat-header {
   padding: 10px;
   background-color: #7395ae;
   border-bottom: 1px solid #938e93;
@@ -330,6 +333,8 @@ a:hover {
   transition-property: background-color;
   transition-duration: 0.5s;
 }
+
+/* Poll styles */
 
 .poll-overview:hover .poll-header {
   background-color: #557a95;
@@ -398,26 +403,6 @@ span.poll-divider {
   border-color: transparent #7395ae transparent transparent;
 }
 
-.user-header {
-  display: flex;
-  flex-direction: row;
-  padding: 10px;
-  border-bottom: 1px solid #938e93;
-  font-family: 'Titillium Web', sans-serif;
-}
-
-.user-header-avatar {
-  width: 100px;
-  height: 100px;
-}
-
-.user-header-data {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  margin-left: 30px;
-}
-
 .additional-info {
   margin-top: auto;
 }
@@ -462,4 +447,68 @@ span.number-of-answers {
 .poll-chart {
   padding: 10px;
   border-top: 1px solid #938e93;
+}
+
+/* User styles */
+
+.user-header {
+  display: flex;
+  flex-direction: row;
+  padding: 10px;
+  border-bottom: 1px solid #938e93;
+  font-family: 'Titillium Web', sans-serif;
+}
+
+.user-header-avatar {
+  width: 100px;
+  height: 100px;
+}
+
+.user-header-data {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin-left: 30px;
+}
+
+.stat-header {
+  background-color: #557a95;
+}
+
+.stat-row {
+  display: flex;
+  flex-direction: row;
+  padding: 10px;
+}
+
+.stat-row:first-child {
+  margin-top: 10px;
+}
+
+.stat-row span:first-child {
+  width: 200px;
+  margin-right: 1em;
+  flex-grow: 0;
+  text-align: left;
+}
+
+.stat-row span:nth-last-child(2) {
+  width: 50px;
+  margin-right: 1em;
+  flex-grow: 0;
+  text-align: right;
+}
+
+.stat-row span:last-child {
+  flex-grow: 1;
+  text-align: left;
+}
+
+.stat-row:nth-last-child(2) span:nth-last-child(2) {
+  border-bottom: 1px solid #938e93;
+}
+
+.total-row {
+  margin-bottom: 10px;
+  font-weight: 600;
 }
