@@ -49,6 +49,7 @@ const User = (props) => {
       <UserHeader
         username={props.username}
         additionalInfo={`User rank: ${props.place}`}
+        award={props.place === 1 ? 'gold' : props.place === 2 ? 'silver' : props.place === 3 ? 'bronze' : undefined}
       />
       <div className="stat-header">
         User statistics

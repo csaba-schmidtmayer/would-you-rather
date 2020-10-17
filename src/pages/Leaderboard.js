@@ -12,8 +12,6 @@ class Leaderboard extends React.Component {
           <User
             key={user.username}
             place={user.place}
-            avatar={user.avatar}
-            name={user.name}
             username={user.username}
             numOfPolls={user.numOfPolls}
             pollPoints={user.numOfPolls * POLL_VALUE}

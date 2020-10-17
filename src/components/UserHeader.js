@@ -16,10 +16,21 @@ const UserHeader = (props) => (
       <span className="username">
         {props.user.username}
       </span>
-      <span className="additional-info">
-        {props.additionalInfo}
-      </span>
+      {
+        props.additionalInfo === undefined
+          ? null
+          : (
+            <span className="additional-info">
+              {props.additionalInfo}
+            </span>
+          )
+      }
     </div>
+    {
+      props.award === undefined
+        ? null
+        : <div className={props.award} />
+    }
   </div>
 );
 
