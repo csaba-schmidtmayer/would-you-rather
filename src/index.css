@@ -88,7 +88,7 @@ a:hover {
   margin: auto;
 }
 
-.user-header {
+.user-menu {
   width: 120px;
   position: relative;
   display: flex;
@@ -398,7 +398,7 @@ span.poll-divider {
   border-color: transparent #7395ae transparent transparent;
 }
 
-.poll-author {
+.user-header {
   display: flex;
   flex-direction: row;
   padding: 10px;
@@ -406,19 +406,19 @@ span.poll-divider {
   font-family: 'Titillium Web', sans-serif;
 }
 
-.poll-author-avatar {
+.user-header-avatar {
   width: 100px;
   height: 100px;
 }
 
-.poll-author-data {
+.user-header-data {
   position: relative;
   display: flex;
   flex-direction: column;
   margin-left: 30px;
 }
 
-.creation-date {
+.additional-info {
   margin-top: auto;
 }
 

@@ -4,7 +4,7 @@ import { HorizontalBar } from 'react-chartjs-2';
 import 'chartjs-plugin-stacked100';
 
 import { answerPoll } from '../actions/pollActions';
-import CreatedBy from '../components/CreatedBy';
+import UserHeader from '../components/UserHeader';
 import UnansweredOption from '../components/UnansweredOption';
 import AnsweredOption from '../components/AnsweredOption';
 
@@ -58,15 +58,33 @@ class PollDetails extends React.Component {
     return {optionOnePercent, optionTwoPercent};
   }
 
+  formatDate() {
+    const addZero = (value) => (
+      value < 10
+        ? `0${value}`
+        : value
+    );
+
+    const date = this.props.poll.created;
+
+    const year = date.getFullYear();
+    const month = addZero(date.getMonth());
+    const day = addZero(date.getDate());
+    const hour = addZero(date.getHours());
+    const min = addZero(date.getMinutes());
+
+    return `${year}-${month}-${day} ${hour}:${min}`
+  };
+
   render() {
     const { author, poll, answer } = this.props;
     const { optionOnePercent, optionTwoPercent } = this.countPercentage();
 
     return (
       <div className="poll-detailed">
-        <CreatedBy
-          author={author}
-          created={poll.created}
+        <UserHeader
+          username={author}
+          additionalInfo={this.formatDate()}
          />
          <div className="poll-header">
            Would you rather...?

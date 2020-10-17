@@ -6,7 +6,7 @@ import avatars from '../../svg/avatars';
 import caretDown from '../../svg/caret-down.svg';
 import caretUp from '../../svg/caret-up.svg';
 
-class UserHeader extends React.Component {
+class UserMenu extends React.Component {
   constructor(props) {
     super(props);
 
@@ -27,7 +27,7 @@ class UserHeader extends React.Component {
   render() {
     return (
       <div
-        className="user-header"
+        className="user-menu"
         onClick={this.handleUserPanel}>
         <div className="user-interaction">
           <img
@@ -52,4 +52,4 @@ const mapStateToProps = ({ activeUser }) => ({
   avatar: activeUser.avatar
 });
 
-export default connect(mapStateToProps)(UserHeader);
+export default connect(mapStateToProps)(UserMenu);
