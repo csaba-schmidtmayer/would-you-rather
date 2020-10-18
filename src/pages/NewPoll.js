@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
+import PollHeader from '../components/PollHeader';
+import InputField from '../components/InputField';
 import { newPoll } from '../actions/pollActions';
 import { SUCCESS } from '../constants/const';
 
@@ -10,8 +12,14 @@ class NewPoll extends React.Component {
     super(props);
 
     this.state = {
-      optionOne: '',
-      optionTwo: ''
+      optionOne: {
+        value: '',
+        warning: undefined
+      },
+      optionTwo: {
+        value: '',
+        warning: undefined
+      }
     };
 
     this.handleFormChange = this.handleFormChange.bind(this);
@@ -23,42 +31,57 @@ class NewPoll extends React.Component {
     event.preventDefault();
     this.setState((prevState) => ({
       ...prevState,
-      [target.name]: target.value
+      [target.name]: {
+        ...prevState[target.name],
+        value: target.value
+      }
     }));
   }
 
   handleNewPollSubmit(event) {
     event.preventDefault();
-    this.props.dispatch(newPoll(this.state.optionOne, this.state.optionTwo));
+    this.props.dispatch(newPoll(this.state.optionOne.value, this.state.optionTwo.value));
   }
 
   render() {
-    // TODO: Add redirect to the new poll
     const { dbMsg } = this.props;
     return (
       (dbMsg.msgText === SUCCESS)
         ? <Redirect push to={`/polls/${dbMsg.msgParams.pollId}`} />
-        : <div>
+        : <div className="new-poll">
           {dbMsg.msgText ? <p>{dbMsg.msgText}</p> : null}
-          <p>Would you rather...?</p>
+          <PollHeader />
           <form onSubmit={this.handleNewPollSubmit}>
-            <input
-              name="optionOne"
-              type="text"
-              placeholder="do this"
-              value={this.state.optionOne}
-              onChange={this.handleFormChange}
-            />
-            <input
-              name="optionTwo"
-              type="text"
-              placeholder="do that"
-              value={this.state.optionTwo}
-              onChange={this.handleFormChange}
-            />
-            <button type="submit">
-              Create new poll
-            </button>
+            <div className="poll-option input-option">
+              <InputField
+                name="optionOne"
+                type="text"
+                placeholder="Enter first option"
+                value={this.state.optionOne.value}
+                warning={this.state.optionOne.warning}
+                onChange={this.handleFormChange}
+              />
+            </div>
+            <div className="poll-divider-container">
+              <span className="poll-divider">or</span>
+            </div>
+            <div className="poll-option input-option">
+              <InputField
+                name="optionTwo"
+                type="text"
+                placeholder="Enter second option"
+                value={this.state.optionTwo.value}
+                warning={this.state.optionTwo.warning}
+                onChange={this.handleFormChange}
+              />
+            </div>
+            <div className="input-submit">
+              <button
+                type="submit"
+                disabled={this.state.optionOne.value === '' || this.state.optionTwo.value === ''}>
+                Submit new poll
+              </button>
+            </div>
           </form>
         </div>
     );

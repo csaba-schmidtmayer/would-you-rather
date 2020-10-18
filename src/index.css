@@ -573,12 +573,8 @@ input:focus {
   padding: 10px;
 }
 
-.input-option:first-child {
-  padding-bottom: 1.5em;
-}
-
-.poll-option:nth-child(3) {
-  padding-top: 1.5em;
+.input-option {
+  padding-bottom: 3em;
 }
 
 .input-placeholder {
@@ -602,4 +598,39 @@ input:focus {
 .input-placeholder.input-filled {
   top: 0;
   font-size: 0.8em;
+}
+
+.input-warning {
+  position: absolute;
+  bottom: -1.5em;
+  font-size: 0.8em;
+  color: #e27d60;
+}
+
+.input-submit {
+  padding: 10px;
+}
+
+.input-submit button {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #938e93;
+  border-radius: 5px;
+  background-color: #7395ae;
+  text-align: center;
+  font-family: 'Titillium Web', sans-serif;
+  font-size: 1.1em;
+  color: #fff;
+  cursor: pointer;
+}
+
+.input-submit button:hover {
+  background-color: #557a95;
+}
+
+.input-submit button:disabled {
+  border: 1px solid #ebeaee;
+  background-color: #ebeaee;
+  color: #938e93;
+  cursor: default;
 }
