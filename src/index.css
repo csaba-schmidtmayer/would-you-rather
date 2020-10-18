@@ -218,10 +218,6 @@ a:hover {
   color: #5d5c61;
 }
 
-.dashboard-search input:focus {
-  outline: none;
-}
-
 .search-icon {
   width: 24px;
   height: 24px;
@@ -303,6 +299,7 @@ a:hover {
 
 .poll-overview,
 .poll-detailed,
+.new-poll,
 .user {
   width: 680px;
   background-color: #fff;
@@ -317,6 +314,7 @@ a:hover {
 
 .poll-overview:first-child,
 .poll-detailed,
+.new-poll,
 .user:first-child {
   margin-top: 100px;
 }
@@ -324,7 +322,7 @@ a:hover {
 .poll-header,
 .stat-header {
   padding: 10px;
-  background-color: #7395ae;
+  background-color: #557a95;
   border-bottom: 1px solid #938e93;
   font-family: 'Titillium Web', sans-serif;
   font-size: 1.3em;
@@ -335,6 +333,10 @@ a:hover {
 }
 
 /* Poll styles */
+
+.poll-overview .poll-header {
+  background-color: #7395ae;
+}
 
 .poll-overview:hover .poll-header {
   background-color: #557a95;
@@ -537,4 +539,67 @@ span.number-of-answers {
 .total-row {
   margin-bottom: 10px;
   font-weight: 600;
+}
+
+/* Input styles */
+
+.input-wrapper {
+  position: relative;
+  width: 100%;
+  border-bottom: 1px solid #938e93;
+  transition-property: border-bottom;
+  transition-duration: 0.5s;
+}
+
+input {
+  width: 100%;
+  border-width: 0px;
+  border-radius: 5px;
+  margin-top: 1.5em;
+  color: #5d5c61;
+}
+
+input,
+.input-placeholder {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1.1em;
+}
+
+input:focus {
+  outline: none;
+}
+
+.input-option {
+  padding: 10px;
+}
+
+.input-option:first-child {
+  padding-bottom: 1.5em;
+}
+
+.poll-option:nth-child(3) {
+  padding-top: 1.5em;
+}
+
+.input-placeholder {
+  position: absolute;
+  top: 1.5em;
+  left: 0;
+  color: #938e93;
+  transition-property: top, font-size, color;
+  transition-duration: 0.5s;
+}
+
+.input-wrapper.input-active {
+  border-bottom: 1px solid #7395ae;
+}
+
+.input-placeholder.input-active {
+  color: #7395ae;
+}
+
+.input-placeholder.input-active,
+.input-placeholder.input-filled {
+  top: 0;
+  font-size: 0.8em;
 }
