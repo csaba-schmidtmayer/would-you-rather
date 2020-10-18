@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import PollHeader from './PollHeader';
+
 const PollOverview = (props) => (
   <div className="poll-overview">
     <Link to={`/polls/${props.id}`}>
-      <div className="poll-header">
-        Would you rather...?
-      </div>
+      <PollHeader />
       <div className="poll-options">
         <div className="poll-option">
           <span>{props.optionOne}</span>

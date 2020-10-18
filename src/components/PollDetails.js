@@ -5,6 +5,7 @@ import 'chartjs-plugin-stacked100';
 
 import { answerPoll } from '../actions/pollActions';
 import UserHeader from '../components/UserHeader';
+import PollHeader from '../components/PollHeader';
 import UnansweredOption from '../components/UnansweredOption';
 import AnsweredOption from '../components/AnsweredOption';
 
@@ -85,11 +86,9 @@ class PollDetails extends React.Component {
         <UserHeader
           username={author}
           additionalInfo={this.formatDate()}
-         />
-         <div className="poll-header">
-           Would you rather...?
-         </div>
-         <div className="poll-options">
+        />
+        <PollHeader />
+        <div className="poll-options">
           {
             answer === undefined
               ? (
