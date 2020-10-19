@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { logout } from '../../actions/userActions';
@@ -29,11 +30,15 @@ class UserPanel extends React.Component {
             View profile
           </div>
           <div className="user-data-action">
-            Change avatar
+            <Link to="/manage/avatar">
+              Change avatar
+            </Link>
           </div>
           <div className="user-data-action">
-            Change password
-          </div>
+            <Link to="/manage/password">
+              Change password
+            </Link>
+          </div>  
         </div>
         <div className="user-data-action-group">
           <div
