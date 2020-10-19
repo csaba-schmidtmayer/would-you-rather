@@ -131,7 +131,7 @@ const loginUserLogic = createLogic({
               username,
               name,
               avatar,
-              numOfPolls,
+              polls,
               numOfAnswers
             }
           }
@@ -257,7 +257,11 @@ const answerPollLogic = createLogic({
 
   async process ({ getState, action, httpClient}, dispatch, done) {
     dispatch(clearDbMsg());
-    dispatch(answerPollUpdate(action.payload));
+    const updatePayload = {
+      ...action.payload,
+      user: getState().activeUser.username
+    };
+    dispatch(answerPollUpdate(updatePayload));
     try {
       const reqAnswerPollData = {
         query: `
@@ -280,7 +284,7 @@ const answerPollLogic = createLogic({
     }
     catch (error) {
       console.log(error);
-      dispatch(answerpollRevert(action.payload));
+      dispatch(answerpollRevert(updatePayload));
     }
     finally {
       done();

@@ -25,7 +25,7 @@ class Leaderboard extends React.Component {
 }
 
 const calcTotalPoints = (user) => (
-  user.numOfPolls * POLL_VALUE + user.numOfAnswers * ANSWER_VALUE
+  user.polls.length * POLL_VALUE + user.numOfAnswers * ANSWER_VALUE
 )
 
 const mapStateToProps = ({ users }) => {
@@ -33,7 +33,8 @@ const mapStateToProps = ({ users }) => {
     .map((key) => (Object.assign({}, users[key])))
     .sort((a, b) => (calcTotalPoints(b) - calcTotalPoints(a)))
     .map((user, index, array) => {
-      // Assign place
+      // Assign numOfPolls, place
+      user.numOfPolls = user.polls.length;
       if (index === 0) {
         user.place = 1;
       }
