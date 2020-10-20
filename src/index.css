@@ -139,27 +139,23 @@ a:hover {
   border-top: 1px solid #938e93;
 }
 
-.user-data-action {
-  margin-top: 5px;
-  margin-bottom: 5px;
-}
-
-.user-data-action:first-child {
-  margin-top: 0px;
-}
-
-.user-data-action:last-child {
-  margin-bottom: 0px;
+.user-data-action:not(:first-child):not(:last-child) {
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .user-data-action a,
 .user-data-action a:active,
-.user-data-action a:visited {
+.user-data-action a:visited,
+.user-data-action span {
   color: #5d5c61;
+  cursor: pointer;
 }
 
-.user-data-action a:hover {
+.user-data-action a:hover,
+.user-data-action span:hover {
   color: #7395ae;
+  cursor: pointer;
 }
 
 /* Main content area */
@@ -320,7 +316,8 @@ a:hover {
 .poll-overview:first-child,
 .poll-detailed,
 .new-poll,
-.user:first-child {
+.user:first-child,
+.avatar-picker {
   margin-top: 100px;
 }
 
@@ -638,4 +635,21 @@ input:focus {
   background-color: #ebeaee;
   color: #938e93;
   cursor: default;
+}
+
+.avatar-picker div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatar-picker-icon {
+  width: 40px;
+  height: 40px;
+}
+
+.avatar-picker-avatar {
+  width: 80px;
+  height: 80px;
 }

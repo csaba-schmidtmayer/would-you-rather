@@ -38,14 +38,13 @@ class UserPanel extends React.Component {
             <Link to="/manage/password">
               Change password
             </Link>
-          </div>  
+          </div>
         </div>
         <div className="user-data-action-group">
-          <div
-            className="user-data-action"
-            onClick={this.logout}
-          >
-            Log out
+          <div className="user-data-action">
+            <span onClick={this.logout}>
+              Log out
+            </span>
           </div>
         </div>
       </div>
