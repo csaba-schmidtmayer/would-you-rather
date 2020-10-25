@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 
+import InputDropdown from '../components/InputDropdown';
 import { FILTER_UNANSWERED, FILTER_ANSWERED, FILTER_ALL, SORT_BY_NEWEST, SORT_BY_OLDEST, SORT_BY_MOST_POPULAR, SORT_BY_LEAST_POPULAR } from '../constants/const';
 import toggleLeft from '../svg/toggle-left.svg';
 import toggleRight from '../svg/toggle-right.svg';
@@ -10,12 +11,6 @@ import caretDown from '../svg/caret-down-full.svg';
 class DashboardMenu extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      sortOptionsVisible: false
-    };
-
-    this.handleSortClick = this.handleSortClick.bind(this);
 
     this.filterOptions = [
       {
@@ -68,32 +63,6 @@ class DashboardMenu extends React.Component {
     ));
   }
 
-  mapSortOptions() {
-    return this.sortOptions.map((option) => (
-      <span
-        key={option.value}
-        className="dashboard-sort-option"
-        onClick={() => this.props.onSortChange(option.value)}
-      >
-        {option.label}
-      </span>
-    ));
-  }
-
-  handleSortClick() {
-    this.setState((prevState) => ({
-      ...prevState,
-      sortOptionsVisible: !prevState.sortOptionsVisible
-    }));
-  }
-
-  findActiveSortLabel() {
-    const activeSort = this.sortOptions.find((option) => (
-      option.value === this.props.activeSort
-    ));
-    return activeSort.label;
-  }
-
   render() {
     return (
       <div className="dashboard-menu">
@@ -131,19 +100,10 @@ class DashboardMenu extends React.Component {
           Sort
         </div>
         <div className="dashboard-menu-item">
-          <div
-            className="dashboard-sort"
-            onClick={this.handleSortClick}
-          >
-            <span>{this.findActiveSortLabel()}</span>
-            <img
-              className="sort-icon"
-              src={caretDown}
-            />
-            <div className={`dashboard-sort-menu${this.state.sortOptionsVisible ? '' : ' hidden'}`}>
-              {this.mapSortOptions()}
-            </div>
-          </div>
+          <InputDropdown
+            options={this.sortOptions}
+            onChange={this.props.onSortChange}
+          />
         </div>
       </div>
     );
