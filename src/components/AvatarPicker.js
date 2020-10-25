@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 
+import InputDropdown from './InputDropdown';
 import avatars from '../svg/avatars';
 import chevronLeft from '../svg/chevron-left.svg';
 import chevronRight from '../svg/chevron-right.svg';
@@ -14,7 +15,19 @@ const AvatarPicker = (props) => {
       .filter((key) => (key.includes('female')))
   }
 
-  const [ type, setType ] = useState('female');
+  const options = [
+    {
+      value: 'male',
+      label: 'Show male avatars'
+    },
+    {
+      value: 'female',
+      label: 'Show female avatars'
+    }
+  ];
+  const defaultOption = options[1];
+
+  const [ type, setType ] = useState(defaultOption.value);
   const [ index, setIndex ] = useState(0);
 
   const pageDown = () => {
@@ -33,19 +46,16 @@ const AvatarPicker = (props) => {
     setIndex(newIndex);
   };
 
-  const changeType = () => {
+  const handleTypeChange = (value) => {
     const newIndex = 0;
-    const newType = type === 'male'
-      ? 'female'
-      : 'male';
-    props.onChange(types[newType][newIndex]);
+    props.onChange(types[value][newIndex]);
     setIndex(newIndex);
-    setType(newType);
+    setType(value);
   };
 
   return (
     <div className="avatar-picker">
-      <div>
+      <div className="avatar-picker-row">
         <img
           className="avatar-picker-icon"
           src={chevronLeft}
@@ -61,29 +71,12 @@ const AvatarPicker = (props) => {
           onClick={pageUp}
         />
       </div>
-      <div>
-        <div
-          onClick={changeType}
-        >
-          <img
-            className="avatar-picker-icon"
-            src={type === 'female' ? toggleRight : toggleLeft}
-          />
-          <span>
-            Show female avatars
-          </span>
-        </div>
-        <div
-          onClick={changeType}
-        >
-          <img
-            className="avatar-picker-icon"
-            src={type === 'male' ? toggleRight : toggleLeft}
-          />
-          <span>
-            Show male avatars
-          </span>
-        </div>
+      <div className="avatar-picker-row">
+        <InputDropdown
+          options={options}
+          defaultOption={defaultOption}
+          onChange={handleTypeChange}
+        />
       </div>
     </div>
   )
