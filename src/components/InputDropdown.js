@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import caretDown from '../svg/caret-down-full.svg';
+import { ReactComponent as CaretDown } from '../svg/caret-down-react.svg';
 
 const InputDropdown = (props) => {
   const [ isOpen, setIsOpen ] = useState(false);
@@ -26,14 +26,11 @@ const InputDropdown = (props) => {
 
   return (
     <div
-      className="input-dropdown"
+      className={`input-dropdown${isOpen ? ' active' : ''}`}
       onClick={() => {setIsOpen(!isOpen)}}
     >
       <span>{activeOption.label}</span>
-      <img
-        className="dropdown-icon"
-        src={caretDown}
-      />
+      <CaretDown className="dropdown-icon" />
       <div className={`dropdown-options${isOpen ? '' : ' hidden'}`}>
         {mapOptions()}
       </div>

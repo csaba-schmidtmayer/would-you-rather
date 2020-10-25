@@ -93,29 +93,53 @@ input {
 
 .input-dropdown {
   @extend %flex-h;
+  @extend %base-div;
   position: relative;
-  padding: $default-padding / 2;
-  background-color: $div-background-color;
+  padding: $default-padding;
+  border: none;
   cursor: pointer;
+  box-shadow: none;
 
   span {
     flex-grow: 1;
   }
+
+  .dropdown-icon {
+    @extend %input-icon;
+    flex-grow: 0;
+    margin-left: 1em;
+    stroke: $font-color;
+    fill: $font-color;
+  }
+
+  &:hover {
+    background-color: $highlight-color;
+  }
+  &.active {
+    background-color: $header-color;
+  }
+  &:hover, &.active {
+    & > span {
+      color: $header-font-color;
+    }
+
+    .dropdown-icon {
+      stroke: $header-font-color;
+      fill: $header-font-color;
+    }
+  }
 }
 
-.dropdown-icon {
-  @extend %input-icon;
-  flex-grow: 0;
-}
+
 
 .dropdown-options {
   @extend %flex-v;
   position: absolute;
   top: 100%;
-  width: 200px;
   background-color: $div-background-color;
   padding: $default-padding;
   border: $border;
+  border-top: none;
   border-radius: 0 0 $border-radius $border-radius;
   box-shadow: $shadow;
 }
@@ -129,11 +153,10 @@ input {
   }
 }
 
-.avatar-picker {
-  div {
-    @extend %flex-h;
-    justify-content: center;
-  }
+.avatar-picker-row {
+  @extend %flex-h;
+  justify-content: center;
+  padding: $default-padding;
 }
 
 .avatar-picker-icon {
