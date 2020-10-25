@@ -1,0 +1,41 @@
+%base-div {
+  background-color: $div-background-color;
+  border: $border;
+  border-radius: $border-radius;
+  box-shadow: $shadow;
+}
+
+%content-div {
+  @extend %base-div;
+  width: 680px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  &:first-child {
+    margin-top: 100px;
+  }
+}
+
+%content-header {
+  padding: $default-padding;
+  background-color: $header-color;
+  border-bottom: $border;
+  font-family: $header-font;
+  font-size: 1.3em;
+  font-weight: 400;
+  color: $header-font-color;
+  transition-property: background-color;
+  transition-duration: 0.5s;
+}
+
+.divider {
+  background-color: $header-color;
+  font-family: $header-font;
+  color: $header-font-color;
+  text-transform: uppercase;
+}
+
+.hidden {
+  visibility: hidden;
+}

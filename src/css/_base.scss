@@ -1,0 +1,69 @@
+body {
+  background-color: $background-color;
+  font-family: $base-font;
+  color: $font-color;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-y: scroll;
+}
+
+a {
+  text-decoration: none;
+
+  &:-webkit-any-link {
+    color: inherit;
+  }
+}
+
+%flex-h {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+%flex-v {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+%icon {
+  width: 40px;
+  height: 40px;
+}
+
+%avatar {
+  width: 100px;
+  height: 100px;
+}
+
+%font-big {
+  font-size: 1.2em;
+  font-weight: 600;
+}
+
+%font-bigger {
+  font-size: 1.1em;
+  font-weight: 600;
+}
+
+%font-smaller {
+  font-size: 0.9em;
+  font-weight: 400;
+}
+
+%font-small {
+  font-size: 0.8em;
+  font-weight: 200;
+}
+
+.app-body {
+  @extend %flex-h;
+  justify-content: center;
+}
+
+.main-content-area {
+  @extend %flex-v;
+  width: 800px;
+}

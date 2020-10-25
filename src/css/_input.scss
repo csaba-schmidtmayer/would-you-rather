@@ -1,0 +1,107 @@
+.input-wrapper {
+  position: relative;
+  width: 100%;
+  border-bottom: $border;
+  transition-property: border-color;
+  transition-duration: 0.5s;
+
+  &.input-active {
+    border-color: $highlight-color;
+  }
+}
+
+%input-font {
+  font-family: $base-font;
+  font-size: 1.1em;
+}
+
+input {
+  @extend %input-font;
+  width: 100%;
+  border-width: 0px;
+  border-radius: $border-radius;
+  margin-top: 1.5em;
+  outline: none;
+  color: $font-color;
+}
+
+.input-option {
+  padding: 10px;
+}
+
+.input-option {
+  padding-bottom: 3em;
+}
+
+%placeholder-up {
+  top: 0;
+  font-size: 0.8em;
+}
+
+.input-placeholder {
+  @extend %input-font;
+  position: absolute;
+  top: 1.5em;
+  left: 0;
+  color: $placeholder-font-color;
+  transition-property: top, font-size, color;
+  transition-duration: 0.5s;
+
+  &.input-active {
+    @extend %placeholder-up;
+    color: $highlight-color;
+  }
+
+  &.input-filled {
+    @extend %placeholder-up;
+  }
+}
+
+.input-warning {
+  position: absolute;
+  bottom: -1.5em;
+  font-size: 0.8em;
+  color: $warning-color;
+}
+
+.input-submit {
+  padding: $default-padding;
+
+   button {
+    width: 100%;
+    padding: $default-padding;
+    border: $border;
+    border-radius: $border-radius;
+    background-color: $header-color;
+    text-align: center;
+    font-family: $header-font;
+    font-size: 1.1em;
+    color: $header-font-color;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $highlight-color;
+    }
+    &:disabled {
+      border-color: $background-color;
+      background-color: $background-color;
+      color: $placeholder-font-color;
+      cursor: default;
+    }
+  }
+}
+
+.avatar-picker {
+  div {
+    @extend %flex-h;
+    justify-content: center;
+  }
+}
+
+.avatar-picker-icon {
+  @extend %icon;
+}
+
+.avatar-picker-avatar {
+  @extend %avatar;
+}

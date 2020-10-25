@@ -1,0 +1,112 @@
+.dashboard-menu {
+  @extend %flex-v;
+  @extend %base-div;
+  position: fixed;
+  top: 100px;
+  left: 40px;
+  width: 240px;
+  margin: auto;
+
+  & > div {
+    padding: $default-padding;
+  }
+}
+
+.dashboard-menu-item {
+  @extend %flex-v;
+  position: relative;
+}
+
+.dashboard-search {
+  @extend %flex-h;
+  position: relative;
+  padding: 5px;
+  border: $border;
+  border-radius: $border-radius;
+  cursor: text;
+
+  input {
+    display: block;
+    min-width: 100px;
+    border: none;
+    outline: none;
+    margin: auto;
+    font-family: $base-font;
+    font-size: 1em;
+    color: $font-color;
+  }
+}
+
+%input-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.search-icon {
+  @extend %input-icon;
+  margin-right: 5px;
+}
+
+.cancel-icon {
+  @extend %input-icon;
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+.dashboard-toggle-option {
+  @extend %flex-h;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  cursor: pointer;
+
+  &:hover {
+    color: $highlight-color;
+  }
+
+  span {
+    display: block;
+    padding-left: $default-padding * 1.5;
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+}
+
+.toggle-icon {
+  @extend %icon;
+}
+
+.dashboard-sort {
+  @extend %flex-h;
+  position: relative;
+  padding: $default-padding / 2;
+  cursor: pointer;
+
+  span {
+    flex-grow: 1;
+  }
+}
+
+.sort-icon {
+  @extend %input-icon;
+  flex-grow: 0;
+}
+
+.dashboard-sort-menu {
+  position: absolute;
+  top: 100%;
+  width: 200px;
+  background-color: $div-background-color;
+  padding: $default-padding;
+  border: $border;
+  border-radius: 0 0 $border-radius $border-radius;
+  box-shadow: $shadow;
+}
+
+.dashboard-sort-option {
+  display: block;
+  padding: $default-padding / 2;
+
+  &:hover {
+    color: $highlight-color;
+  }
+}

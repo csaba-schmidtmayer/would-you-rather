@@ -1,0 +1,117 @@
+#main-header {
+  @extend %flex-h;
+  justify-content: center;
+  position: fixed;
+  z-index: 10;
+  width: 100%;
+  height: $header-height;
+  background-color: $header-color;
+  box-shadow: $shadow;
+}
+
+.header-left {
+  width: 120px;
+  height: $header-height;
+}
+
+.navbar {
+  @extend %flex-h;
+  justify-content: center;
+  width: 800px;
+  height: $header-height;
+}
+
+.navbar-link {
+  @extend %flex-v;
+  position: relative;
+  min-width: 90px;
+  max-width: 120px;
+  height: $header-height;
+  padding-left: 5px;
+  padding-right: 5px;
+
+  .navbar-link-active {
+    width: 100%;
+    height: 3px;
+    background-color: $background-color;
+    visibility: hidden;
+  }
+
+  &:hover {
+    .navbar-link-active {
+      visibility: visible;
+    }
+  }
+}
+
+.main-header-icon {
+  @extend %icon;
+  margin: auto;
+}
+
+.user-menu {
+  @extend %flex-h;
+  justify-content: flex-end;
+  width: 120px;
+  position: relative;
+}
+
+.user-interaction {
+  @extend %flex-h;
+  cursor: pointer;
+}
+
+.user-panel {
+  @extend %base-div;
+  @extend %flex-v;
+  position: absolute;
+  top: 150%;
+  width: 240px;
+  z-index: 1;
+
+    & > div {
+      padding: $default-padding;
+    }
+}
+
+.user-data {
+  span {
+  display: block;
+  font-family: $header-font;
+  }
+}
+
+.full-name {
+  @extend %font-big;
+}
+
+.username {
+  margin-top: -0.2em;
+  margin-left: 1em;
+  font-weight: 200;
+  font-style: italic;
+}
+
+.user-panel .divider,
+.user-data-action-group {
+  border-top: $border;
+}
+
+.user-data-action:not(:first-child):not(:last-child) {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.user-data-action {
+  a, span {
+    cursor: pointer;
+
+    &, &:active, &:visited {
+      color: $font-color;
+    }
+
+    &:hover {
+      color: $highlight-color;
+    }
+  }
+}
