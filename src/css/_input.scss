@@ -2,6 +2,8 @@
   position: relative;
   width: 100%;
   border-bottom: $border;
+  margin-left: $default-padding;
+  margin-right: $default-padding;
   transition-property: border-color;
   transition-duration: 0.5s;
 
@@ -65,6 +67,7 @@ input {
 }
 
 .input-submit {
+  @extend %flex-h;
   padding: $default-padding;
 
    button {
@@ -72,6 +75,7 @@ input {
     padding: $default-padding;
     border: $border;
     border-radius: $border-radius;
+    margin: $default-padding;
     background-color: $header-color;
     text-align: center;
     font-family: $header-font;
@@ -129,8 +133,6 @@ input {
     }
   }
 }
-
-
 
 .dropdown-options {
   @extend %flex-v;

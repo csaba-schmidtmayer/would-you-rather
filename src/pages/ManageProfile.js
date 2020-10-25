@@ -1,24 +1,56 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 
 import AvatarPicker from '../components/AvatarPicker';
+import { changeAvatar } from '../actions/userActions';
 
 class ManageProfile extends React.Component {
   constructor(props) {
     super(props);
 
     this.handleAvatarChange = this.handleAvatarChange.bind(this);
+    this.cancel = this.cancel.bind(this);
   }
 
   handleAvatarChange(avatar) {
-    console.log(avatar);
+    this.props.dispatch(changeAvatar(avatar));
+  }
+
+  cancel() {
+    this.props.history.push('/');
   }
 
   render() {
+    const { field } = this.props.match.params;
     return (
-      <AvatarPicker
-        onChange={this.handleAvatarChange}
-      />
+      <div className="manage-profile">
+        {
+          field === 'avatar'
+            ? (
+              <Fragment>
+                <div className="manage-header">
+                  Change avatar
+                </div>
+                <AvatarPicker
+                  onChange={this.handleAvatarChange}
+                />
+                <div className="input-submit">
+                  <button
+                    onClick={this.handleAvatarSubmit}
+                  >
+                    Change avatar
+                  </button>
+                  <button
+                    onClick={this.cancel}
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </Fragment>
+            )
+            : null
+        }
+      </div>
     );
   }
 }
