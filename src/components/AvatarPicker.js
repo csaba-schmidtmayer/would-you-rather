@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import InputDropdown from './InputDropdown';
 import avatars from '../svg/avatars';
@@ -30,11 +30,14 @@ const AvatarPicker = (props) => {
   const [ type, setType ] = useState(defaultOption.value);
   const [ index, setIndex ] = useState(0);
 
+  useEffect(() => {
+    props.onChange(types[type][index]);
+  }, [type, index]);
+
   const pageDown = () => {
     const newIndex = index === 0
       ? types[type].length - 1
       : index - 1;
-    props.onChange(types[type][newIndex]);
     setIndex(newIndex);
   };
 
@@ -42,13 +45,11 @@ const AvatarPicker = (props) => {
     const newIndex = index === types[type].length - 1
       ? 0
       : index + 1;
-    props.onChange(types[type][newIndex]);
     setIndex(newIndex);
   };
 
   const handleTypeChange = (value) => {
     const newIndex = 0;
-    props.onChange(types[value][newIndex]);
     setIndex(newIndex);
     setType(value);
   };

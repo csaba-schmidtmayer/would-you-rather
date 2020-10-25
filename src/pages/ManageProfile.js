@@ -8,12 +8,24 @@ class ManageProfile extends React.Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      selectedAvatar: ''
+    };
+
     this.handleAvatarChange = this.handleAvatarChange.bind(this);
+    this.handleAvatarSubmit = this.handleAvatarSubmit.bind(this);
     this.cancel = this.cancel.bind(this);
   }
 
   handleAvatarChange(avatar) {
-    this.props.dispatch(changeAvatar(avatar));
+    this.setState((prevState) => ({
+      ...prevState,
+      selectedAvatar: avatar
+    }));
+  }
+
+  handleAvatarSubmit() {
+    this.props.dispatch(changeAvatar(this.state.selectedAvatar));
   }
 
   cancel() {
@@ -32,10 +44,12 @@ class ManageProfile extends React.Component {
                   Change avatar
                 </div>
                 <AvatarPicker
+                  onLoad={this.handleAvatarChange}
                   onChange={this.handleAvatarChange}
                 />
                 <div className="input-submit">
                   <button
+                    disabled={this.state.selectedAvatar === ''}
                     onClick={this.handleAvatarSubmit}
                   >
                     Change avatar

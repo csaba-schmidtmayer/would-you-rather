@@ -1,6 +1,6 @@
 import produce from 'immer';
 
-import { POPULATE_USERS, ADD_NEW_POLL, ANSWER_POLL_UPDATE, ANSWER_POLL_REVERT, CLEAR_STORE } from '../constants/actionTypes';
+import { POPULATE_USERS, ADD_NEW_POLL, ANSWER_POLL_UPDATE, ANSWER_POLL_REVERT, CHANGE_AVATAR_UPDATE, CHANGE_AVATAR_REVERT, CLEAR_STORE } from '../constants/actionTypes';
 
 const userReducer = (state = {}, action) => {
   const { type, payload } = action;
@@ -31,6 +31,16 @@ const userReducer = (state = {}, action) => {
     case ANSWER_POLL_REVERT:
       nextState = produce(state, draftState => {
         draftState[payload.user].numOfAnswers -= 1;
+      });
+      return nextState;
+    case CHANGE_AVATAR_UPDATE:
+      nextState = produce(state, draftState => {
+        draftState[payload.user].avatar = payload.avatar;
+      });
+      return nextState;
+    case CHANGE_AVATAR_REVERT:
+      nextState = produce(state, draftState => {
+        draftState[payload.user].avatar = payload.avatar;
       });
       return nextState;
     case CLEAR_STORE:

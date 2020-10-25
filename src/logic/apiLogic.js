@@ -4,10 +4,10 @@ import { showLoading, hideLoading } from 'react-redux-loading-bar';
 import sha256 from 'crypto-js/sha256';
 import Hex from 'crypto-js/enc-hex';
 
-import { REGISTER, LOGIN, LOGOUT, NEW_POLL, ANSWER_POLL } from '../constants/actionTypes';
+import { REGISTER, CHANGE_AVATAR, LOGIN, LOGOUT, NEW_POLL, ANSWER_POLL } from '../constants/actionTypes';
 import { SUCCESS, API_PATH } from '../constants/const';
 import { setDbMsg, clearDbMsg } from '../actions/dbMsgActions';
-import { setActiveUser, populateUsers } from '../actions/userActions';
+import { setActiveUser, populateUsers, changeAvatarUpdate, changeAvatarRevert } from '../actions/userActions';
 import { populatePolls, addNewPoll, answerPollUpdate, answerpollRevert } from '../actions/pollActions';
 import { clearStore } from '../actions/storeActions';
 
@@ -72,6 +72,42 @@ const registerUserLogic = createLogic({
     }
     finally {
       dispatch(hideLoading());
+      done();
+    }
+  }
+});
+
+const changeAvatarLogic = createLogic({
+  type: CHANGE_AVATAR,
+
+  async process({ getState, action, httpClient }, dispatch, done) {
+    const user = getState().activeUser.username;
+    const oldAvatar = getState().activeUser.avatar;
+    const newAvatar = action.payload.avatar;
+    const reqAvatarData = {
+      query: `
+        mutation ChangeAvatar(
+          $avatar : String!
+        ) {
+          changeAvatar(
+            avatar: $avatar
+          )
+        }
+      `,
+      variables: {
+        avatar: newAvatar
+      }
+    };
+    dispatch(clearDbMsg());
+    dispatch(changeAvatarUpdate(user, newAvatar));
+    try {
+      await checkForErrors(httpClient.post, dispatch, API_PATH, reqAvatarData);
+    }
+    catch (error) {
+      console.log(error);
+      dispatch(changeAvatarRevert(user, oldAvatar));
+    }
+    finally {
       done();
     }
   }
@@ -294,6 +330,7 @@ const answerPollLogic = createLogic({
 
 export default [
   registerUserLogic,
+  changeAvatarLogic,
   loginUserLogic,
   logoutUserLogic,
   newPollLogic,
