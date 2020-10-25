@@ -91,6 +91,44 @@ input {
   }
 }
 
+.input-dropdown {
+  @extend %flex-h;
+  position: relative;
+  padding: $default-padding / 2;
+  background-color: $div-background-color;
+  cursor: pointer;
+
+  span {
+    flex-grow: 1;
+  }
+}
+
+.dropdown-icon {
+  @extend %input-icon;
+  flex-grow: 0;
+}
+
+.dropdown-options {
+  @extend %flex-v;
+  position: absolute;
+  top: 100%;
+  width: 200px;
+  background-color: $div-background-color;
+  padding: $default-padding;
+  border: $border;
+  border-radius: 0 0 $border-radius $border-radius;
+  box-shadow: $shadow;
+}
+
+.dropdown-option {
+  display: block;
+  padding: $default-padding / 2;
+
+  &:hover {
+    color: $highlight-color;
+  }
+}
+
 .avatar-picker {
   div {
     @extend %flex-h;
