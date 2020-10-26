@@ -1,6 +1,32 @@
+$input-field-padding: 1.5em;
+
+.input-field {
+  @extend %flex-h;
+  width: 100%;
+  padding-top: $input-field-padding;
+  padding-bottom: $input-field-padding * 2;
+
+  svg {
+    width: 1.5em;
+    height: 1.5em;
+    margin-left: $default-padding;
+    margin-right: $default-padding;
+    flex-grow: 0;
+    stroke: $font-color;
+    fill: none;
+  }
+
+  &.input-active {
+    svg {
+      stroke: $highlight-color;
+    }
+  }
+}
+
 .input-wrapper {
   position: relative;
   width: 100%;
+  flex-grow: 1;
   border-bottom: $border;
   margin-left: $default-padding;
   margin-right: $default-padding;
@@ -22,7 +48,6 @@ input {
   width: 100%;
   border-width: 0px;
   border-radius: $border-radius;
-  margin-top: 1.5em;
   outline: none;
   color: $font-color;
 }
@@ -36,14 +61,14 @@ input {
 }
 
 %placeholder-up {
-  top: 0;
+  top: $input-field-padding * -1;
   font-size: 0.8em;
 }
 
 .input-placeholder {
   @extend %input-font;
   position: absolute;
-  top: 1.5em;
+  top: 0;
   left: 0;
   color: $placeholder-font-color;
   transition-property: top, font-size, color;
@@ -61,7 +86,7 @@ input {
 
 .input-warning {
   position: absolute;
-  bottom: -1.5em;
+  bottom: $input-field-padding * -1.5;
   font-size: 0.8em;
   color: $warning-color;
 }
