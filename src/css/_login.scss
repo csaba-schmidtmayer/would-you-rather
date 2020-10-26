@@ -1,0 +1,24 @@
+.login {
+  @extend %content-div;
+}
+
+.login-header {
+  @extend %content-header;
+}
+
+.login-input {
+  padding: $default-padding;
+}
+
+.login-register {
+  font-size: 1.1em;
+  text-align: center;
+
+  a {
+    color: $header-color;
+
+    &:hover {
+      color: $highlight-color;
+    }
+  }
+}

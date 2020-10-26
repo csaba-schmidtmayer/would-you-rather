@@ -1,7 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import { login } from '../actions/userActions';
+import InputField from '../components/InputField';
+import { ReactComponent as EyeClosed } from '../svg/eye-closed.svg';
+import { ReactComponent as EyeOpen } from '../svg/eye-open.svg';
 
 class Login extends React.Component {
   constructor() {
@@ -9,11 +13,13 @@ class Login extends React.Component {
 
     this.state = {
       username: '',
-      password: ''
+      password: '',
+      isPwdVisible: false
     };
 
     this.handleLoginSubmit = this.handleLoginSubmit.bind(this);
     this.handleFormChange = this.handleFormChange.bind(this);
+    this.togglePwdVisibility = this.togglePwdVisibility.bind(this);
   }
 
   handleLoginSubmit(event) {
@@ -30,29 +36,56 @@ class Login extends React.Component {
     }));
   }
 
+  togglePwdVisibility() {
+    this.setState((prevState) => ({
+      ...prevState,
+      isPwdVisible: !prevState.isPwdVisible
+    }));
+  }
+
   render() {
     return (
-      <div>
-        {this.props.errorMsg !== '' ? <p>{this.props.errorMsg}</p> : null}
-        <form onSubmit={this.handleLoginSubmit}>
-          <input
+      <div className="login">
+        <div className="login-header">
+          Login
+        </div>
+        <div className="login-input">
+          <InputField
             name="username"
             type="text"
-            placeholder="Username"
             value={this.state.username}
+            placeholder={'Enter your username'}
             onChange={this.handleFormChange}
           />
-          <input
+          <InputField
             name="password"
-            type="password"
-            placeholder="Password"
+            type={this.state.isPwdVisible ? 'text' : 'password'}
             value={this.state.password}
+            placeholder={'Enter your password'}
             onChange={this.handleFormChange}
+            trailIconComp={
+              this.state.isPwdVisible
+                ? <EyeOpen onClick={this.togglePwdVisibility} />
+                : <EyeClosed onClick={this.togglePwdVisibility} />
+            }
           />
-          <button type="submit">
+        </div>
+        <div className="input-submit">
+          <button
+            disabled={this.state.username === '' || this.state.password === ''}
+            onClick={this.handleLoginSubmit}
+          >
             Log in
           </button>
-        </form>
+        </div>
+        <div className="login-register">
+          <p>
+            {`No account? `}
+            <Link to="/register">
+              Register.
+            </Link>
+          </p>
+        </div>
       </div>
     );
   }
