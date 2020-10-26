@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom';
 
 import AvatarPicker from '../components/AvatarPicker';
 import InputField from '../components/InputField';
-import { changeAvatar } from '../actions/userActions';
+import { changeAvatar, changePassword } from '../actions/userActions';
 import { ReactComponent as EyeClosed } from '../svg/eye-closed.svg';
 import { ReactComponent as EyeOpen } from '../svg/eye-open.svg';
 
@@ -33,6 +33,7 @@ class ManageProfile extends React.Component {
     this.handleAvatarSubmit = this.handleAvatarSubmit.bind(this);
     this.togglePwdVisibility = this.togglePwdVisibility.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
+    this.handlePasswordSubmit = this.handlePasswordSubmit.bind(this);
     this.cancel = this.cancel.bind(this);
   }
 
@@ -70,8 +71,7 @@ class ManageProfile extends React.Component {
   }
 
   handlePasswordSubmit() {
-    // TODO implement dispatch
-    console.log('new password');
+    this.props.dispatch(changePassword(this.state.passwordOne.value));
   }
 
   cancel() {

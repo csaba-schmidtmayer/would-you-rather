@@ -12,6 +12,7 @@ export const REGISTER = 'REGISTER';
 export const CHANGE_AVATAR = 'CHANGE_AVATAR';
 export const CHANGE_AVATAR_UPDATE = 'CHANGE_AVATAR_UPDATE';
 export const CHANGE_AVATAR_REVERT = 'CHANGE_AVATAR_REVERT';
+export const CHANGE_PASSWORD = 'CHANGE_PASSWORD';
 export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
 export const SET_ACTIVE_USER = 'SET_ACTIVE_USER';

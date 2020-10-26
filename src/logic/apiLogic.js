@@ -4,7 +4,7 @@ import { showLoading, hideLoading } from 'react-redux-loading-bar';
 import sha256 from 'crypto-js/sha256';
 import Hex from 'crypto-js/enc-hex';
 
-import { REGISTER, CHANGE_AVATAR, LOGIN, LOGOUT, NEW_POLL, ANSWER_POLL } from '../constants/actionTypes';
+import { REGISTER, CHANGE_AVATAR, CHANGE_PASSWORD, LOGIN, LOGOUT, NEW_POLL, ANSWER_POLL } from '../constants/actionTypes';
 import { SUCCESS, API_PATH } from '../constants/const';
 import { setDbMsg, clearDbMsg } from '../actions/dbMsgActions';
 import { setActiveUser, populateUsers, changeAvatarUpdate, changeAvatarRevert } from '../actions/userActions';
@@ -106,6 +106,37 @@ const changeAvatarLogic = createLogic({
     catch (error) {
       console.log(error);
       dispatch(changeAvatarRevert(user, oldAvatar));
+    }
+    finally {
+      done();
+    }
+  }
+});
+
+const changePasswordLogic = createLogic({
+  type: CHANGE_PASSWORD,
+
+  async process({ getState, action, httpClient }, dispatch, done) {
+    const reqPasswordData = {
+      query: `
+        mutation ChangePassword(
+          $password : String!
+        ) {
+          changePassword(
+            password: $password
+          )
+        }
+      `,
+      variables: {
+        password: hashPwd(action.payload.password)
+      }
+    };
+    dispatch(clearDbMsg());
+    try {
+      await checkForErrors(httpClient.post, dispatch, API_PATH, reqPasswordData);
+    }
+    catch (error) {
+      console.log(error);
     }
     finally {
       done();
@@ -331,6 +362,7 @@ const answerPollLogic = createLogic({
 export default [
   registerUserLogic,
   changeAvatarLogic,
+  changePasswordLogic,
   loginUserLogic,
   logoutUserLogic,
   newPollLogic,
