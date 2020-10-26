@@ -5,3 +5,7 @@
 .manage-header {
   @extend %content-header;
 }
+
+.manage-input {
+  padding: $default-padding;
+}
