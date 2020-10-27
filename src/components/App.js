@@ -23,30 +23,39 @@ function App(props) {
     <div className="App">
       {props.hasMsg ? <Modal /> : null}
       {props.isLoggedIn ? <Header /> : null}
-      <LoadingBar />
-      <div className="app-body">
-        <div className="main-content-area">
-          <Switch>
-            <Route exact path="/" component={props.isLoggedIn ? Dashboard : Login} />
-            <Route path="/leaderboard" component={props.isLoggedIn ? Leaderboard : PollLogin} />
-            <Route path="/add" component={props.isLoggedIn ? NewPoll : PollLogin} />
-            <Route path="/polls/:id" component={props.isLoggedIn ? SinglePoll : PollLogin} />
-            <Route path="/users/:username" component={props.isLoggedIn ? User : PollLogin} />
-            <Route path="/manage/:field" component={props.isLoggedIn ? ManageProfile : PollLogin} />
-            <Route path="/register" component={Register} />
-            <Route path="/*" component={props.isLoggedIn ? PollNotFound : PollLogin} />
-          </Switch>
-        </div>
-      </div>
+      <LoadingBar className="loading-bar" />
+      {
+        props.isLoading
+          ? null
+          : (
+            <div className="app-body">
+              <div className="main-content-area">
+                <Switch>
+                  <Route exact path="/" component={props.isLoggedIn ? Dashboard : Login} />
+                  <Route path="/leaderboard" component={props.isLoggedIn ? Leaderboard : PollLogin} />
+                  <Route path="/add" component={props.isLoggedIn ? NewPoll : PollLogin} />
+                  <Route path="/polls/:id" component={props.isLoggedIn ? SinglePoll : PollLogin} />
+                  <Route path="/users/:username" component={props.isLoggedIn ? User : PollLogin} />
+                  <Route path="/manage/:field" component={props.isLoggedIn ? ManageProfile : PollLogin} />
+                  <Route path="/register" component={Register} />
+                  <Route path="/*" component={props.isLoggedIn ? PollNotFound : PollLogin} />
+                </Switch>
+              </div>
+            </div>
+          )
+      }
     </div>
   );
 }
 
-const mapStateToProps = ({ activeUser, dbMsg }) => ({
+const mapStateToProps = ({ activeUser, dbMsg, loadingBar }) => ({
   isLoggedIn: activeUser === null
     ? false
     : true,
   hasMsg: dbMsg.msgText !== '' && dbMsg.msgText !== SUCCESS
+    ? true
+    : false,
+  isLoading: loadingBar.default === 1
     ? true
     : false
 });

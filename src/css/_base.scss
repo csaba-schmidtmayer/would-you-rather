@@ -67,3 +67,9 @@ a {
   @extend %flex-v;
   width: 800px;
 }
+
+.loading-bar {
+  position: absolute;
+  height: 3px;
+  background-color: $highlight-color;
+}
