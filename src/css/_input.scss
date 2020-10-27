@@ -2,6 +2,7 @@ $input-field-padding: 1.5em;
 
 .input-field {
   @extend %flex-h;
+  align-items: flex-end;
   width: 100%;
   padding-top: $input-field-padding;
   padding-bottom: $input-field-padding * 2;
@@ -9,7 +10,8 @@ $input-field-padding: 1.5em;
   svg {
     width: 1.5em;
     height: 1.5em;
-    margin-left: $default-padding;
+    padding-left: $default-padding;
+    border-bottom: $border;
     margin-right: $default-padding;
     flex-grow: 0;
     stroke: $font-color;
@@ -21,6 +23,14 @@ $input-field-padding: 1.5em;
       stroke: $highlight-color;
     }
   }
+  & > * {
+    &:first-child {
+      margin-left: $default-padding;
+    }
+    &:last-child {
+      margin-right: $default-padding;
+    }
+  }
 }
 
 .input-wrapper {
@@ -28,8 +38,8 @@ $input-field-padding: 1.5em;
   width: 100%;
   flex-grow: 1;
   border-bottom: $border;
-  margin-left: $default-padding;
-  margin-right: $default-padding;
+  //margin-left: $default-padding;
+  //margin-right: $default-padding;
   transition-property: border-color;
   transition-duration: 0.5s;
 
