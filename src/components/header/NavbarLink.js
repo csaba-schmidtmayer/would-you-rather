@@ -7,6 +7,7 @@ const NavbarLink = (props) => (
       <img
         className="main-header-icon"
         src={props.icon}
+        alt={props.alt}
       />
       <div className="navbar-link-active" />
     </div>

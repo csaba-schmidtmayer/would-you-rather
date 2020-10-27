@@ -1,5 +1,4 @@
 import { createLogic } from 'redux-logic';
-import { axios } from 'axios';
 import { showLoading, hideLoading } from 'react-redux-loading-bar';
 import sha256 from 'crypto-js/sha256';
 import Hex from 'crypto-js/enc-hex';

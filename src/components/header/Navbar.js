@@ -13,15 +13,18 @@ class Navbar extends React.Component {
       links: [
         {
           linkTo: '/',
-          icon: home
+          icon: home,
+          alt: 'Link to the dashboard'
         },
         {
           linkTo: '/leaderboard',
-          icon: trophy
+          icon: trophy,
+          alt: 'Link to the leaderboard'
         },
         {
           linkTo: '/add',
-          icon: pencil
+          icon: pencil,
+          alt: 'Link to the create new poll page'
         },
       ]
     }
@@ -35,6 +38,7 @@ class Navbar extends React.Component {
             key={link.linkTo}
             linkTo={link.linkTo}
             icon={link.icon}
+            alt={link.alt}
           />
         ))}
       </nav>

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import DashboardMenu from '../components/DashboardMenu';
 import PollOverview from '../components/PollOverview';
-import { FILTER_UNANSWERED, FILTER_ANSWERED, FILTER_ALL, SORT_BY_NEWEST, SORT_BY_OLDEST, SORT_BY_MOST_POPULAR, SORT_BY_LEAST_POPULAR } from '../constants/const';
+import { FILTER_UNANSWERED, FILTER_ALL, SORT_BY_NEWEST, SORT_BY_OLDEST, SORT_BY_MOST_POPULAR } from '../constants/const';
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -68,14 +68,14 @@ class Dashboard extends React.Component {
         : searchedPolls.filter((poll) => (poll.answer !== null));
 
     const sortedPolls = sortValue === SORT_BY_NEWEST
-      ? filteredPolls.sort((a, b) => (b.created - a.created))
+      ? [...filteredPolls].sort((a, b) => (b.created - a.created))
       : sortValue === SORT_BY_OLDEST
-        ? filteredPolls.sort((a, b) => (a.created - b.created))
+        ? [...filteredPolls].sort((a, b) => (a.created - b.created))
         : sortValue === SORT_BY_MOST_POPULAR
-          ? filteredPolls.sort((a, b) => (b.numOfAnswers - a.numOfAnswers))
-          : filteredPolls.sort((a, b) => (a.numOfAnswers - b.numOfAnswers));
+          ? [...filteredPolls].sort((a, b) => (b.numOfAnswers - a.numOfAnswers))
+          : [...filteredPolls].sort((a, b) => (a.numOfAnswers - b.numOfAnswers));
 
-    return filteredPolls.map((poll) => (
+    return sortedPolls.map((poll) => (
       <PollOverview
         key={poll.id}
         id={poll.id}

@@ -9,6 +9,7 @@ const UserHeader = (props) => (
     <img
       className="user-header-avatar"
       src={avatars[props.user.avatar]}
+      alt={`Avatar of ${props.user.name}`}
     />
     <div className="user-header-data">
       <Link to={`/users/${props.user.username}`}>

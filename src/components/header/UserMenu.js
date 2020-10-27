@@ -33,10 +33,12 @@ class UserMenu extends React.Component {
           <img
             className="main-header-icon"
             src={this.state.isUserPanelVisible ? caretUp : caretDown}
+            alt=""
           />
           <img
             className="main-header-icon"
             src={avatars[this.props.avatar]}
+            alt="The avatar of the active user"
           />
         </div>
         {this.state.isUserPanelVisible

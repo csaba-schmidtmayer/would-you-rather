@@ -4,8 +4,6 @@ import InputDropdown from './InputDropdown';
 import avatars from '../svg/avatars';
 import chevronLeft from '../svg/chevron-left.svg';
 import chevronRight from '../svg/chevron-right.svg';
-import toggleLeft from '../svg/toggle-left.svg';
-import toggleRight from '../svg/toggle-right.svg';
 
 const AvatarPicker = (props) => {
   const types = {
@@ -29,16 +27,19 @@ const AvatarPicker = (props) => {
 
   const [ type, setType ] = useState(defaultOption.value);
   const [ index, setIndex ] = useState(0);
+  const [ selectedAvatar, setSelectedAvatar] = useState(types[type][index]);
+  const { onChange } = props;
 
   useEffect(() => {
-    props.onChange(types[type][index]);
-  }, [type, index]);
+    onChange(selectedAvatar);
+  }, [onChange, selectedAvatar]);
 
   const pageDown = () => {
     const newIndex = index === 0
       ? types[type].length - 1
       : index - 1;
     setIndex(newIndex);
+    setSelectedAvatar(types[type][newIndex]);
   };
 
   const pageUp = () => {
@@ -46,12 +47,14 @@ const AvatarPicker = (props) => {
       ? 0
       : index + 1;
     setIndex(newIndex);
+    setSelectedAvatar(types[type][newIndex]);
   };
 
   const handleTypeChange = (value) => {
     const newIndex = 0;
     setIndex(newIndex);
     setType(value);
+    setSelectedAvatar(types[value][newIndex]);
   };
 
   return (
@@ -61,15 +64,18 @@ const AvatarPicker = (props) => {
           className="avatar-picker-icon"
           src={chevronLeft}
           onClick={pageDown}
+          alt="Show previous avatar"
         />
         <img
           className="avatar-picker-avatar"
           src={avatars[types[type][index]]}
+          alt="The selected avatar"
         />
         <img
           className="avatar-picker-icon"
           src={chevronRight}
           onClick={pageUp}
+          alt="Show next avatar"
         />
       </div>
       <div className="avatar-picker-row">

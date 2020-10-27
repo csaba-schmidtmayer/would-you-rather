@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 
 import InputDropdown from '../components/InputDropdown';
 import { FILTER_UNANSWERED, FILTER_ANSWERED, FILTER_ALL, SORT_BY_NEWEST, SORT_BY_OLDEST, SORT_BY_MOST_POPULAR, SORT_BY_LEAST_POPULAR } from '../constants/const';
@@ -6,7 +6,6 @@ import toggleLeft from '../svg/toggle-left.svg';
 import toggleRight from '../svg/toggle-right.svg';
 import search from '../svg/search.svg';
 import cancel from '../svg/cancel.svg';
-import caretDown from '../svg/caret-down-full.svg';
 
 class DashboardMenu extends React.Component {
   constructor(props) {
@@ -57,6 +56,7 @@ class DashboardMenu extends React.Component {
         <img
           className="toggle-icon"
           src={this.props.activeFilter === option.value ? toggleRight : toggleLeft}
+          alt="Toggles the active filter"
         />
         <span>{option.label}</span>
       </div>
@@ -76,6 +76,7 @@ class DashboardMenu extends React.Component {
             <img
               className="search-icon"
               src={search}
+              alt="Search field"
             />
             <input
               ref={(input) => {this.searchField = input;}}
@@ -87,6 +88,7 @@ class DashboardMenu extends React.Component {
               className={`cancel-icon${this.props.activeSearch !== '' ? '' : ' hidden'}`}
               src={cancel}
               onClick={this.props.onSearchCancel}
+              alt="Deletes the search input"
             />
           </div>
         </div>
