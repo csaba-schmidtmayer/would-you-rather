@@ -271,6 +271,7 @@ const logoutUserLogic = createLogic({
       };
       await checkForErrors(httpClient.post, dispatch, API_PATH, reqLogoutData);
       delete httpClient.defaults.headers.common['Authorization'];
+      window.sessionStorage.removeItem('sessionToken');
       dispatch(clearStore());
     }
     catch (error) {
