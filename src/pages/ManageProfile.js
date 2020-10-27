@@ -95,7 +95,6 @@ class ManageProfile extends React.Component {
                   </div>
                   <div className="manage-input">
                     <AvatarPicker
-                      onLoad={this.handleAvatarChange}
                       onChange={this.handleAvatarChange}
                     />
                   </div>
