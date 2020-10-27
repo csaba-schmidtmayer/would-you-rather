@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import avatars from '../svg/avatars';
 
@@ -10,9 +11,11 @@ const UserHeader = (props) => (
       src={avatars[props.user.avatar]}
     />
     <div className="user-header-data">
-      <span className="full-name">
-        {props.user.name}
-      </span>
+      <Link to={`/users/${props.user.username}`}>
+        <span className="full-name">
+          {props.user.name}
+        </span>
+      </Link>
       <span className="username">
         {props.user.username}
       </span>

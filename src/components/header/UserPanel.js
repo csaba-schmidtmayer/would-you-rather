@@ -27,7 +27,9 @@ class UserPanel extends React.Component {
         </div>
         <div className="user-data-action-group">
           <div className="user-data-action">
-            View profile
+            <Link to={`/users/${this.props.username}`}>
+              View profile
+            </Link>
           </div>
           <div className="user-data-action">
             <Link to="/manage/avatar">

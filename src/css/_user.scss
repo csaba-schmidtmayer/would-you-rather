@@ -8,6 +8,10 @@
   padding: $default-padding;
   border-bottom: $border;
   font-family: $header-font;
+
+  .full-name:hover {
+    color: $highlight-color;  
+  }
 }
 
 .user-header-avatar {
