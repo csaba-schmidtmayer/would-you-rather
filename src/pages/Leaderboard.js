@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import User from '../components/User';
+import LeaderboardUser from '../components/LeaderboardUser';
 import { POLL_VALUE, ANSWER_VALUE } from '../constants/const';
 
 class Leaderboard extends React.Component {
@@ -9,7 +9,7 @@ class Leaderboard extends React.Component {
     return (
       <div>
         {this.props.users.map((user, index) =>(
-          <User
+          <LeaderboardUser
             key={user.username}
             place={user.place}
             username={user.username}
