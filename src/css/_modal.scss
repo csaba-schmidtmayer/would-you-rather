@@ -1,0 +1,21 @@
+.modal {
+  position: absolute;
+  z-index: 1000;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(244, 244, 244, 0.6);
+
+  .popup {
+    @extend %content-div;
+    @extend %flex-v;
+    position: relative;
+    top: 20%;
+    width: 340px;
+
+    .popup-message {
+      padding: $default-padding * 2;
+      font-size: 1.2em;
+      text-align: center;
+    }
+  }
+}

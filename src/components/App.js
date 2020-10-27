@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Switch, Route } from 'react-router-dom';
 import LoadingBar from 'react-redux-loading-bar';
 
+import Modal from './Modal';
 import Header from './header/Header';
 import Dashboard from '../pages/Dashboard';
 import Leaderboard from '../pages/Leaderboard';
@@ -15,9 +16,12 @@ import ManageProfile from '../pages/ManageProfile';
 import Register from '../pages/Register';
 import PollNotFound from '../pages/PollNotFound';
 
+import { SUCCESS } from '../constants/const';
+
 function App(props) {
   return (
     <div className="App">
+      {props.hasMsg ? <Modal /> : null}
       {props.isLoggedIn ? <Header /> : null}
       <LoadingBar />
       <div className="app-body">
@@ -38,8 +42,13 @@ function App(props) {
   );
 }
 
-const mapStateToProps = ({ activeUser }) => ({
-  isLoggedIn: activeUser === null ? false : true
+const mapStateToProps = ({ activeUser, dbMsg }) => ({
+  isLoggedIn: activeUser === null
+    ? false
+    : true,
+  hasMsg: dbMsg.msgText !== '' && dbMsg.msgText !== SUCCESS
+    ? true
+    : false
 });
 
 export default connect(mapStateToProps)(App);
