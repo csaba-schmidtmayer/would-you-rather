@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
 
+import PollNotFound from './PollNotFound';
 import AvatarPicker from '../components/AvatarPicker';
 import InputField from '../components/InputField';
 import { changeAvatar, changePassword } from '../actions/userActions';
@@ -83,94 +83,97 @@ class ManageProfile extends React.Component {
     return (
       <>
         {
-          this.fields.includes(field) ? null : <Redirect to="/" />
+          !this.fields.includes(field)
+            ? <PollNotFound />
+            : (
+              <div className="manage-profile">
+                {
+                  field === 'avatar'
+                    ? (
+                      <>
+                        <div className="manage-header">
+                          Change avatar
+                        </div>
+                        <div className="manage-input">
+                          <AvatarPicker
+                            onChange={this.handleAvatarChange}
+                          />
+                        </div>
+                      </>
+                    )
+                    : null
+                }
+                {
+                  field === 'password'
+                    ? (
+                      <>
+                        <div className="manage-header">
+                          Change password
+                        </div>
+                        <div className="manage-input">
+                          <InputField
+                            name="passwordOne"
+                            type={this.state.passwordOne.isPwdVisible ? 'text' : 'password'}
+                            value={this.state.passwordOne.value}
+                            placeholder="Enter new password"
+                            onChange={this.handlePasswordChange}
+                            trailIconComp={
+                              this.state.passwordOne.isPwdVisible
+                                ? <EyeOpen onClick={() => this.togglePwdVisibility('passwordOne')} />
+                                : <EyeClosed onClick={() => this.togglePwdVisibility('passwordOne')} />
+                            }
+                          />
+                          <InputField
+                            name="passwordTwo"
+                            type={this.state.passwordTwo.isPwdVisible ? 'text' : 'password'}
+                            value={this.state.passwordTwo.value}
+                            placeholder="Confirm new password"
+                            onChange={this.handlePasswordChange}
+                            trailIconComp={
+                              this.state.passwordTwo.isPwdVisible
+                                ? <EyeOpen onClick={() => this.togglePwdVisibility('passwordTwo')} />
+                                : <EyeClosed onClick={() => this.togglePwdVisibility('passwordTwo')} />
+                            }
+                          />
+                        </div>
+                      </>
+                    )
+                    : null
+                }
+                <div className="input-submit">
+                  {
+                    field === 'avatar'
+                      ? (
+                        <button
+                          disabled={this.state.selectedAvatar === ''}
+                          onClick={this.handleAvatarSubmit}
+                        >
+                          Change avatar
+                        </button>
+                      )
+                      : null
+                  }
+                  {
+                    field === 'password'
+                      ? (
+                        <button
+                          disabled={this.state.passwordOne.value === '' || this.state.passwordOne.value !== this.state.passwordTwo.value}
+                          onClick={this.handlePasswordSubmit}
+                        >
+                          Change password
+                        </button>
+                      )
+                      : null
+                  }
+                  <button
+                    onClick={this.cancel}
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            )
         }
-        <div className="manage-profile">
-          {
-            field === 'avatar'
-              ? (
-                <>
-                  <div className="manage-header">
-                    Change avatar
-                  </div>
-                  <div className="manage-input">
-                    <AvatarPicker
-                      onChange={this.handleAvatarChange}
-                    />
-                  </div>
-                </>
-              )
-              : null
-          }
-          {
-            field === 'password'
-              ? (
-                <>
-                  <div className="manage-header">
-                    Change password
-                  </div>
-                  <div className="manage-input">
-                    <InputField
-                      name="passwordOne"
-                      type={this.state.passwordOne.isPwdVisible ? 'text' : 'password'}
-                      value={this.state.passwordOne.value}
-                      placeholder="Enter new password"
-                      onChange={this.handlePasswordChange}
-                      trailIconComp={
-                        this.state.passwordOne.isPwdVisible
-                          ? <EyeOpen onClick={() => this.togglePwdVisibility('passwordOne')} />
-                          : <EyeClosed onClick={() => this.togglePwdVisibility('passwordOne')} />
-                      }
-                    />
-                    <InputField
-                      name="passwordTwo"
-                      type={this.state.passwordTwo.isPwdVisible ? 'text' : 'password'}
-                      value={this.state.passwordTwo.value}
-                      placeholder="Confirm new password"
-                      onChange={this.handlePasswordChange}
-                      trailIconComp={
-                        this.state.passwordTwo.isPwdVisible
-                          ? <EyeOpen onClick={() => this.togglePwdVisibility('passwordTwo')} />
-                          : <EyeClosed onClick={() => this.togglePwdVisibility('passwordTwo')} />
-                      }
-                    />
-                  </div>
-                </>
-              )
-              : null
-          }
-          <div className="input-submit">
-            {
-              field === 'avatar'
-                ? (
-                  <button
-                    disabled={this.state.selectedAvatar === ''}
-                    onClick={this.handleAvatarSubmit}
-                  >
-                    Change avatar
-                  </button>
-                )
-                : null
-            }
-            {
-              field === 'password'
-                ? (
-                  <button
-                    disabled={this.state.passwordOne.value === '' || this.state.passwordOne.value !== this.state.passwordTwo.value}
-                    onClick={this.handlePasswordSubmit}
-                  >
-                    Change password
-                  </button>
-                )
-                : null
-            }
-            <button
-              onClick={this.cancel}
-            >
-              Cancel
-            </button>
-          </div>
-        </div>
       </>
     );
   }

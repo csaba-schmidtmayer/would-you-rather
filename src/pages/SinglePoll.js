@@ -2,13 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import PollDetails from '../components/PollDetails';
+import PollNotFound from './PollNotFound';
 
 const SinglePoll = (props) => (
-  !props.pollExists
-    ? <div>
-      <p>The poll does not exist.</p>
-    </div>
-    : <PollDetails id={props.id} />
+  props.pollExists
+    ? <PollDetails id={props.id} />
+    : <PollNotFound />
 );
 
 const mapStateToProps = ({ polls }, props) => {

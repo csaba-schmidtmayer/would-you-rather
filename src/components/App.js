@@ -12,6 +12,7 @@ import PollLogin from '../pages/PollLogin';
 import SinglePoll from '../pages/SinglePoll';
 import ManageProfile from '../pages/ManageProfile';
 import Register from '../pages/Register';
+import PollNotFound from '../pages/PollNotFound';
 
 function App(props) {
   return (
@@ -27,6 +28,7 @@ function App(props) {
             <Route path="/polls/:id" component={props.isLoggedIn ? SinglePoll : PollLogin} />
             <Route path="/manage/:field" component={props.isLoggedIn ? ManageProfile : PollLogin} />
             <Route path="/register" component={Register} />
+            <Route path="/*" component={props.isLoggedIn ? PollNotFound : PollLogin} />
           </Switch>
         </div>
       </div>
