@@ -68,7 +68,6 @@ const registerUserLogic = createLogic({
       dispatch(clearDbMsg());
     }
     catch (error) {
-      console.log(error);
     }
     finally {
       dispatch(hideLoading());
@@ -104,7 +103,6 @@ const changeAvatarLogic = createLogic({
       await checkForErrors(httpClient.post, dispatch, API_PATH, reqAvatarData);
     }
     catch (error) {
-      console.log(error);
       dispatch(changeAvatarRevert(user, oldAvatar));
     }
     finally {
@@ -136,7 +134,6 @@ const changePasswordLogic = createLogic({
       await checkForErrors(httpClient.post, dispatch, API_PATH, reqPasswordData);
     }
     catch (error) {
-      console.log(error);
     }
     finally {
       done();
@@ -227,7 +224,6 @@ const loginUserLogic = createLogic({
       dispatch(setActiveUser(activeUserData.activeUser));
     }
     catch (error) {
-      console.log(error);
     }
     finally {
       dispatch(hideLoading());
@@ -260,7 +256,6 @@ const logoutUserLogic = createLogic({
       dispatch(clearStore());
     }
     catch (error) {
-      console.log(error);
     }
     finally {
       done();
@@ -310,7 +305,6 @@ const newPollLogic = createLogic({
       dispatch(clearDbMsg());
     }
     catch (error) {
-      console.log(error);
     }
     finally {
       dispatch(hideLoading());
@@ -350,7 +344,6 @@ const answerPollLogic = createLogic({
       await checkForErrors(httpClient.post, dispatch, API_PATH, reqAnswerPollData);
     }
     catch (error) {
-      console.log(error);
       dispatch(answerpollRevert(updatePayload));
     }
     finally {
