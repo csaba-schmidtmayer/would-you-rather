@@ -10,6 +10,7 @@ import NewPoll from '../pages/NewPoll';
 import Login from '../pages/Login';
 import PollLogin from '../pages/PollLogin';
 import SinglePoll from '../pages/SinglePoll';
+import User from '../pages/User';
 import ManageProfile from '../pages/ManageProfile';
 import Register from '../pages/Register';
 import PollNotFound from '../pages/PollNotFound';
@@ -26,6 +27,7 @@ function App(props) {
             <Route path="/leaderboard" component={props.isLoggedIn ? Leaderboard : PollLogin} />
             <Route path="/add" component={props.isLoggedIn ? NewPoll : PollLogin} />
             <Route path="/polls/:id" component={props.isLoggedIn ? SinglePoll : PollLogin} />
+            <Route path="/users/:username" component={props.isLoggedIn ? User : PollLogin} />
             <Route path="/manage/:field" component={props.isLoggedIn ? ManageProfile : PollLogin} />
             <Route path="/register" component={Register} />
             <Route path="/*" component={props.isLoggedIn ? PollNotFound : PollLogin} />
