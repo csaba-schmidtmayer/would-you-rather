@@ -8,6 +8,7 @@ import Dashboard from '../pages/Dashboard';
 import Leaderboard from '../pages/Leaderboard';
 import NewPoll from '../pages/NewPoll';
 import Login from '../pages/Login';
+import PollLogin from '../pages/PollLogin';
 import SinglePoll from '../pages/SinglePoll';
 import ManageProfile from '../pages/ManageProfile';
 import Register from '../pages/Register';
@@ -21,10 +22,10 @@ function App(props) {
         <div className="main-content-area">
           <Switch>
             <Route exact path="/" component={props.isLoggedIn ? Dashboard : Login} />
-            <Route path="/leaderboard" component={props.isLoggedIn ? Leaderboard : Login} />
-            <Route path="/add" component={props.isLoggedIn ? NewPoll : Login} />
-            <Route path="/polls/:id" component={props.isLoggedIn ? SinglePoll : Login} />
-            <Route path="/manage/:field" component={props.isLoggedIn ? ManageProfile : Login} />
+            <Route path="/leaderboard" component={props.isLoggedIn ? Leaderboard : PollLogin} />
+            <Route path="/add" component={props.isLoggedIn ? NewPoll : PollLogin} />
+            <Route path="/polls/:id" component={props.isLoggedIn ? SinglePoll : PollLogin} />
+            <Route path="/manage/:field" component={props.isLoggedIn ? ManageProfile : PollLogin} />
             <Route path="/register" component={Register} />
           </Switch>
         </div>

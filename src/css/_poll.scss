@@ -14,7 +14,8 @@
   }
 }
 
-.poll-detailed {
+.poll-detailed,
+.poll-nav {
   @extend %content-div;
 
   .poll-option.unanswered {
