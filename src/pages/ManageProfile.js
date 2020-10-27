@@ -114,7 +114,7 @@ class ManageProfile extends React.Component {
                       name="passwordOne"
                       type={this.state.passwordOne.isPwdVisible ? 'text' : 'password'}
                       value={this.state.passwordOne.value}
-                      placeholder={'Enter new password'}
+                      placeholder="Enter new password"
                       onChange={this.handlePasswordChange}
                       trailIconComp={
                         this.state.passwordOne.isPwdVisible
@@ -126,7 +126,7 @@ class ManageProfile extends React.Component {
                       name="passwordTwo"
                       type={this.state.passwordTwo.isPwdVisible ? 'text' : 'password'}
                       value={this.state.passwordTwo.value}
-                      placeholder={'Repeat new password'}
+                      placeholder="Confirm new password"
                       onChange={this.handlePasswordChange}
                       trailIconComp={
                         this.state.passwordTwo.isPwdVisible
