@@ -23,4 +23,5 @@ export const SET_DB_MSG = 'SET_DB_MSG';
 export const CLEAR_DB_MSG = 'CLEAR_DB_MSG';
 
 /* Store */
+export const FETCH_DATA = 'FETCH_DATA';
 export const CLEAR_STORE = 'CLEAR_STORE';

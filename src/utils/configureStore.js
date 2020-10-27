@@ -5,10 +5,15 @@ import axios from 'axios';
 
 import rootReducer from '../reducers';
 import logic from '../logic';
+import { fetchData } from '../actions/storeActions';
 
 /* Configure logic middleware */
 const httpClient = axios.create({baseURL: 'https://schmiczy.eu/would-you-rather-server'});
 httpClient.defaults.headers.common['Content-Type'] = 'application/json';
+const sessionToken = window.sessionStorage.getItem('sessionToken');
+if (sessionToken !== undefined) {
+  httpClient.defaults.headers.common['Authorization'] = sessionToken;
+}
 const dependencies = {
   httpClient
 };
@@ -25,6 +30,11 @@ const configureStore = (preloadedState = {}) => {
   const composedEnhancers = composeWithDevTools(...enhancers);
 
   const store = createStore(rootReducer, preloadedState, composedEnhancers);
+
+  // If a sessionToken is available, fetch the data from the server
+  if (sessionToken !== undefined) {
+    store.dispatch(fetchData());
+  }
 
   return store;
 }

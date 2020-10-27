@@ -4,12 +4,12 @@ import { showLoading, hideLoading } from 'react-redux-loading-bar';
 import sha256 from 'crypto-js/sha256';
 import Hex from 'crypto-js/enc-hex';
 
-import { REGISTER, CHANGE_AVATAR, CHANGE_PASSWORD, LOGIN, LOGOUT, NEW_POLL, ANSWER_POLL } from '../constants/actionTypes';
+import { REGISTER, CHANGE_AVATAR, CHANGE_PASSWORD, FETCH_DATA, LOGIN, LOGOUT, NEW_POLL, ANSWER_POLL } from '../constants/actionTypes';
 import { SUCCESS, API_PATH } from '../constants/const';
 import { setDbMsg, clearDbMsg } from '../actions/dbMsgActions';
 import { setActiveUser, populateUsers, changeAvatarUpdate, changeAvatarRevert } from '../actions/userActions';
 import { populatePolls, addNewPoll, answerPollUpdate, answerpollRevert } from '../actions/pollActions';
-import { clearStore } from '../actions/storeActions';
+import { fetchData, clearStore } from '../actions/storeActions';
 
 const checkForErrors = async (query, dispatch, ...args) => {
   try {
@@ -141,32 +141,12 @@ const changePasswordLogic = createLogic({
   }
 });
 
-const loginUserLogic = createLogic({
-  type: LOGIN,
+const fetchDataLogic = createLogic({
+  type: FETCH_DATA,
 
   async process({ getState, action, httpClient }, dispatch, done) {
-    dispatch(clearDbMsg());
     dispatch(showLoading());
     try {
-      const reqTokenData = {
-        query: `
-          mutation LoginUser(
-            $credentials: UserCredentialsInput
-          ) {
-            loginUser(
-              credentials: $credentials
-            )
-          }
-        `,
-        variables: {
-          credentials: {
-            username: action.payload.username,
-            password: hashPwd(action.payload.password)
-          }
-        }
-      };
-      const tokenData = await checkForErrors(httpClient.post, dispatch, API_PATH, reqTokenData);
-      httpClient.defaults.headers.common['Authorization'] = tokenData.loginUser;
       const reqPollsData = {
         query: `
           query GetAllPolls{
@@ -222,6 +202,44 @@ const loginUserLogic = createLogic({
       };
       const activeUserData = await checkForErrors(httpClient.post, dispatch, API_PATH, reqActiveUserData);
       dispatch(setActiveUser(activeUserData.activeUser));
+    }
+    catch (error) {
+    }
+    finally {
+      dispatch(hideLoading());
+      done();
+    }
+  }
+});
+
+const loginUserLogic = createLogic({
+  type: LOGIN,
+
+  async process({ getState, action, httpClient }, dispatch, done) {
+    dispatch(clearDbMsg());
+    dispatch(showLoading());
+    try {
+      const reqTokenData = {
+        query: `
+          mutation LoginUser(
+            $credentials: UserCredentialsInput
+          ) {
+            loginUser(
+              credentials: $credentials
+            )
+          }
+        `,
+        variables: {
+          credentials: {
+            username: action.payload.username,
+            password: hashPwd(action.payload.password)
+          }
+        }
+      };
+      const tokenData = await checkForErrors(httpClient.post, dispatch, API_PATH, reqTokenData);
+      httpClient.defaults.headers.common['Authorization'] = tokenData.loginUser;
+      window.sessionStorage.setItem('sessionToken', tokenData.loginUser);
+      dispatch(fetchData());
     }
     catch (error) {
     }
@@ -356,6 +374,7 @@ export default [
   registerUserLogic,
   changeAvatarLogic,
   changePasswordLogic,
+  fetchDataLogic,
   loginUserLogic,
   logoutUserLogic,
   newPollLogic,
