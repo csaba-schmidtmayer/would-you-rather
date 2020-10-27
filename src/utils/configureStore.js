@@ -32,7 +32,7 @@ const configureStore = (preloadedState = {}) => {
   const store = createStore(rootReducer, preloadedState, composedEnhancers);
 
   // If a sessionToken is available, fetch the data from the server
-  if (sessionToken !== undefined) {
+  if (sessionToken !== undefined && sessionToken !== null) {
     store.dispatch(fetchData());
   }
 
