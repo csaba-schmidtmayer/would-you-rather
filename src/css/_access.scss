@@ -22,3 +22,15 @@
     }
   }
 }
+
+.register {
+  @extend %content-div;
+}
+
+.register-header {
+  @extend %content-header;
+}
+
+.register-input {
+  padding: $default-padding;
+}
