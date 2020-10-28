@@ -12,7 +12,7 @@ const store = configureStore();
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router>
+    <Router basename="/would-you-rather">
       <App />
     </Router>
   </Provider>,
